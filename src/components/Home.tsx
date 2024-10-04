@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import gym1 from "../../assets/gym5.jpg";
+import Link from 'next/link';
+
 
 const HomePage: React.FC = () => {
   return (
@@ -27,9 +29,10 @@ const HomePage: React.FC = () => {
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white bg-black bg-opacity-50 rounded-lg">
             <h2 className="text-3xl font-bold mb-4">Become a Member Today!</h2>
             <p className="mb-6 text-center">Join now and get 50% off your first month.</p>
-            <button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">
+            <Link href="/auth "><button className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">
               Join Us
             </button>
+            </Link>
           </div>
         </div>
 
@@ -53,18 +56,22 @@ const HomePage: React.FC = () => {
               <li>Pilates - Fri, 5 PM</li>
               <li>Spin Class - Sat, 9 AM</li>
             </ul>
+            <Link href="/classes">
             <button className="mt-2 bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded transition duration-300">
               Enroll Now
             </button>
+            </Link>
           </div>
 
           {/* Right Side - Book a Session with Trainer */}
           <div className="mt-6">
             <h2 className="text-xl font-bold mb-2">Book a Session</h2>
             <p className="mb-4">Schedule a personal training session to reach your fitness goals.</p>
+            <Link href="/trainer">
             <button className="mt-2 bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded transition duration-300">
               Book a Trainer
             </button>
+            </Link>
           </div>
         </div>
       </div>
