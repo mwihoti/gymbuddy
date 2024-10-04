@@ -11,5 +11,15 @@ export const redis = new Redis({
 })
 
 export async function getDataWithCache(key: string, fetchFn: () => Promise<any>, expireTime = 3600) {
+    const cachedData = await redis.get(key);
+
+    if (cachedData) {
+        return JSON.parse(cachedData);
+    }
+    
+    const data = await fetchFn();
+    await redis.set(key, JSON.stringify(data), "EX", expireTime);
+
+    return data;
     
 }
