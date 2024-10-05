@@ -29,7 +29,21 @@ export async function POST(
         // Generate new token
         const token = jwt.sign({ userId: newUser.id}, process.env.JWT_SECRET!, {expiresIn: '1h'});
 
-        return NextResponse.json({ error: "User not found"}, { status: 400});
+        return NextResponse.json({ user: newUser, token}, { status: 201});
+    }
+    else if (action === 'signin') {
+        const { email, password} = body;
 
+        // Find user
+        const user = await prisma.user.findUnique({ where: { email }});
+
+        if (!user) {
+            return NextResponse.json({ error: 'User not found'}, { status: 404});
+        }
+
+        // check password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!)
     }
 }
