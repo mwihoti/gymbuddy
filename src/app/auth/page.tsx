@@ -1,12 +1,38 @@
 'use client'
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import gym from "../../../assets/gym4.jpg";
 
 const Page: React.FC = () => {
   // State to toggle between login and sign-up forms
   const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('')
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const endpoint = isLogin ? '/api/auth/signin' : '/api/auth/signup';
+    const body = isLogin ? { email, password} : { email, password, username};
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POSt',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Success:', data);
+      } else {
+        console.error('Error:', data.error);
+      }
+    } catch (error) {
+      console.error('Network error:', error );
+    }
+  }
   return (
     <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100">
       {/* Left Side: Image and Welcome Message */}
@@ -40,50 +66,22 @@ const Page: React.FC = () => {
         </div>
 
         {/* Form Section */}
-        {isLogin ? (
-          <div className="w-full">
-            <h3 className="text-xl font-bold text-center mb-4">Log In</h3>
-            <form className="flex flex-col space-y-4">
-              <input
-                type="email"
-                placeholder="Email"
-                className="px-4 py-2 border border-gray-300 rounded-lg"
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                className="px-4 py-2 border border-gray-300 rounded-lg"
-              />
-              <button className="bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition">
-                Log In
-              </button>
-            </form>
-          </div>
-        ) : (
-          <div className="w-full">
-            <h3 className="text-xl font-bold text-center mb-4">Sign Up</h3>
-            <form className="flex flex-col space-y-4">
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="px-4 py-2 border border-gray-300 rounded-lg"
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                className="px-4 py-2 border border-gray-300 rounded-lg"
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                className="px-4 py-2 border border-gray-300 rounded-lg"
-              />
-              <button className="bg-emerald-500 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition">
-                Sign Up
-              </button>
-            </form>
-          </div>
+        <form onSubmit={handleSubmit} className="w-2/3">
+        <h2 className="text-2xl font-bold mb-4">{isLogin ? 'Log In' : 'Sign Up'}</h2>
+        {!isLogin && (
+          <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}
+          className="w-full p-2 mb-4 border rounded" />
+                   
         )}
+        <input type='email' placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)}
+        className="w-full p-2 mb-4 border rounded" />
+        <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)}
+        className="w-full p-2 mb-4 border rounded" />
+
+        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
+          { isLogin ? 'Log In' : 'Sign Up'}
+        </button>
+        </form>
       </div>
     </div>
   );
