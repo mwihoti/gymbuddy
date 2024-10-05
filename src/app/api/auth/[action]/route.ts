@@ -44,6 +44,14 @@ export async function POST(
         // check password
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
-        if (!)
+        if (!isPasswordValid) {
+            return NextResponse.json({ error: 'Invalid password'}, {status: 401});
+        }
+
+        // Generate JWT
+        const token = jwt.sign({ userId: user.id}, process.env.JWT_SECRET!, { expiresIn: '1h'});
+
+        return NextResponse.json({ user, token});
     }
+    return NextResponse.json({ error: 'Invalid action'}, { status: 400});
 }
