@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Classes from '@/components/classes'
 const page: React.FC = () => {
   return (
-    <div><h2>Classes page</h2></div>
+    <div>
+      <Classes />
+    </div>
   )
 }
 
