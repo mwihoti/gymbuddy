@@ -35,7 +35,7 @@ const NavBar: React.FC = () => {
             </Link>
           </div>
           <div className='hidden md:block'>
-            <Link href="/signUp" >
+            <Link href="/auth" >
             <button className='bg-gray-300 hover:bg-gray-500 py-2 px-4 rounded'>Join us</button>
             </Link>
           </div>
