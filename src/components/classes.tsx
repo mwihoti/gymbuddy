@@ -1,70 +1,200 @@
 'use client'
-import React, {useState, useEffect} from 'react';
-import { useRouter } from 'next/router';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
+type ClassType = 'Cardio' | 'Boxing' | 'Weightlifting' | 'Yoga';
+type DayOfWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
 
-const Classes: React.FC = () => {
-    
-    const router = useRouter();
-    const [className, setClassName] = useState('');
-    const [dateTime, setDateTime] = useState('');
-    const [ note, setNote] = useState('');
-    const [ bookings, setBookings] = useState([]);
-
-    // Redirect to login if not authenticated
-    useEffect(() => {
-        if (status === 'unauthenticated'){
-            router.push('/api/auth/signin');
-
-        }
-    }, [status]);
-
-    // Fetch user's previous bookings
-    useEffect(() => {
-        if (session?.user) {
-          fetch('/api/bookings')
-            .then((res) => res.json())
-            .then((data) => setBookings(data));
-
-        }
-    }, [session]);
-
-    // Handle booking submission
-    const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        const response = await fetch('/api/book', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                userId: session?.user?.email || '',
-                className,
-                dateTime,
-                note,
-
-            }),
-        });
-        if (response.ok) {
-            alert('Class booked successfully');
-            setClassName('');
-            setDateTime('');
-            setNote('');
-
-            // Refresh bookings list
-             const updatedBookings = await response.json();
-             setBookings(updatedBookings);
-
-        } else {
-            alert('Failed to book class');
-        }
-    }
-
-  return (
-    <div className='container mx-auto p-6'>
-        <h1 className='text-4xl font-bold text-center mb-6'>Book a class</h1>
-    </div>
-  )
+interface Class {
+  type: ClassType;
+  startTime: string;
+  endTime: string;
 }
 
-export default Classes
+interface Booking {
+  id: number;
+  className: ClassType;
+  dateTime: string;
+  note: string;
+  expired: boolean;
+}
+
+type Timetable = Record<DayOfWeek, Class[]>;
+
+const generateTimetable = (): Timetable => {
+  const timetable: Timetable = {
+    'Monday': [],
+    'Tuesday': [],
+    'Wednesday': [],
+    'Thursday': [],
+    'Friday': [],
+    'Saturday': [],
+    'Sunday': [],
+  };
+
+  const weekdayClasses: Class[] = [
+    { type: 'Cardio', startTime: '05:00', endTime: '07:00' },
+    { type: 'Boxing', startTime: '12:00', endTime: '14:00' },
+    { type: 'Weightlifting', startTime: '15:00', endTime: '17:00' },
+    { type: 'Cardio', startTime: '18:00', endTime: '20:00' },
+    { type: 'Yoga', startTime: '20:00', endTime: '22:00' },
+  ];
+
+  const weekendClasses: Class[] = [
+    { type: 'Cardio', startTime: '06:00', endTime: '07:30' },
+    { type: 'Yoga', startTime: '07:30', endTime: '09:00' },
+  ];
+
+  (Object.keys(timetable) as DayOfWeek[]).forEach((day) => {
+    timetable[day] = day === 'Saturday' || day === 'Sunday' ? weekendClasses : weekdayClasses;
+  });
+
+  return timetable;
+};
+
+const Classes: React.FC = () => {
+  const router = useRouter();
+  const [selectedClass, setSelectedClass] = useState<Class | null>(null);
+  const [selectedDay, setSelectedDay] = useState<DayOfWeek>('Monday');
+  const [note, setNote] = useState<string>('');
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [timetable, setTimetable] = useState<Timetable>({} as Timetable);
+  const [showTrainerBooking, setShowTrainerBooking] = useState<boolean>(false);
+
+  useEffect(() => {
+    setTimetable(generateTimetable());
+    // Fetch user's previous bookings
+    fetch('/api/bookings')
+      .then((res) => res.json())
+      .then((data: Booking[]) => setBookings(data));
+  }, []);
+
+  const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!selectedClass) return;
+
+    const response = await fetch('/api/book', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        className: selectedClass.type,
+        dateTime: `${selectedDay} ${selectedClass.startTime}`,
+        note,
+      }),
+    });
+
+    if (response.ok) {
+      alert('Class booked successfully!');
+      setSelectedClass(null);
+      setNote('');
+
+      // Refresh bookings list
+      const updatedBookings: Booking[] = await response.json();
+      setBookings(updatedBookings);
+    } else {
+      alert('Failed to book class');
+    }
+  };
+
+  const handleTrainerBooking = () => {
+    alert('Trainer session booked successfully!');
+    setShowTrainerBooking(false);
+  };
+
+  return (
+    <div className="container mx-auto p-6">
+      <h1 className="text-4xl font-bold text-center mb-6">Class Booking System</h1>
+
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-4">Timetable</h2>
+        <select
+          value={selectedDay}
+          onChange={(e) => setSelectedDay(e.target.value as DayOfWeek)}
+          className="border p-2 rounded mb-4"
+        >
+          {(Object.keys(timetable) as DayOfWeek[]).map((day) => (
+            <option key={day} value={day}>{day}</option>
+          ))}
+        </select>
+        <ul className="space-y-2">
+          {timetable[selectedDay]?.map((classItem, index) => (
+            <li
+              key={index}
+              className="flex justify-between items-center p-2 border rounded cursor-pointer hover:bg-gray-100"
+              onClick={() => setSelectedClass(classItem)}
+            >
+              <span>{classItem.type}</span>
+              <span>{`${classItem.startTime} - ${classItem.endTime}`}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {selectedClass && (
+        <form onSubmit={handleBooking} className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Book a Class</h2>
+          <p className="mb-4">
+            Selected Class: {selectedClass.type} on {selectedDay} at {selectedClass.startTime}
+          </p>
+          <div className="mb-4">
+            <label className="block mb-2">Note (Optional)</label>
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              className="border p-2 rounded w-full"
+            ></textarea>
+          </div>
+          <button type="submit" className="bg-emerald-500 text-white py-2 px-4 rounded">
+            Book Class
+          </button>
+        </form>
+      )}
+
+      <button
+        onClick={() => setShowTrainerBooking(true)}
+        className="bg-blue-500 text-white py-2 px-4 rounded mb-8"
+      >
+        Book a Session with a Trainer
+      </button>
+
+      {showTrainerBooking && (
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Book a Trainer</h2>
+          <p className="mb-4">Select a time and date for your training session:</p>
+          <input type="datetime-local" className="border p-2 rounded mb-4" />
+          <button
+            onClick={handleTrainerBooking}
+            className="bg-emerald-500 text-white py-2 px-4 rounded"
+          >
+            Book Trainer
+          </button>
+        </div>
+      )}
+
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Previous Bookings</h2>
+        <ul>
+          {bookings.map((booking) => (
+            <li
+              key={booking.id}
+              className={`p-4 border rounded mb-4 ${
+                booking.expired ? 'bg-red-200' : 'bg-green-200'
+              }`}
+            >
+              <p>
+                <strong>Class:</strong> {booking.className}
+              </p>
+              <p>
+                <strong>Date:</strong> {new Date(booking.dateTime).toLocaleString()}
+              </p>
+              <p>{booking.note ? <strong>Note:</strong> : null} {booking.note}</p>
+              <p>{booking.expired ? 'Expired' : 'Upcoming'}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Classes;
