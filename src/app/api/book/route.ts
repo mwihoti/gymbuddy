@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 type Booking = {
     id: number;
     className: string;
-    dateTime: string;
+    dateTime: Date;
     note: string;
     expired: boolean;
 };

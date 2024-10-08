@@ -200,7 +200,7 @@ const Classes: React.FC = () => {
                 <strong>Class:</strong> {booking.className}
               </p>
               <p>
-                <strong>Date:</strong> {new Date(booking.dateTime).toLocaleString()}
+                <strong>Date:</strong> {new Date(booking.dateTime).toLocaleDateString()}
               </p>
               <p>{booking.note ? <strong>Note:</strong> : null} {booking.note}</p>
               <p>{booking.expired ? 'Expired' : 'Upcoming'}</p>

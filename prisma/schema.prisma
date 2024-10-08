@@ -7,22 +7,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  CLIENT
+  TRAINER
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
   name      String?
   username  String?
-  createdAt DateTime @default(now())
+  role      UserRole
+  createdAt DateTime @default(now()) 
+
+  // Relationships
+  clientBookings Booking[] @relation("ClientBookings)
+  trainerBookings Booking[] @relation("TrainerBookings")
+  clientOf          User?   @relation("ClientTrainer", fields: [trainerId], references: [id])
+  trainerId         Int?
+  clients           User[] @relation("ClientTrainer")
 }
+
+
 
 model Booking {
   id Int @id @default(autoincrement())
   userId String
   className String
+  sessionType String
   dateTime DateTime
   note String
   createdAt DateTime @default(now())
   expiresAt DateTime
   expired Boolean @default(false)
+
+  // Relationships
+  client User @relation('ClientBookings', fields: [clientId], references: [id])
+  clientId Int
+  trainer  User @relation("TrainerBookings", fields: [trainerId],  references: [id])
+  trainerId Int
 }
