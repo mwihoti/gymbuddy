@@ -60,39 +60,54 @@ const Classes: React.FC = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [timetable, setTimetable] = useState<Timetable>({} as Timetable);
   const [showTrainerBooking, setShowTrainerBooking] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setTimetable(generateTimetable());
-    // Fetch user's previous bookings
-    fetch('/api/bookings')
-      .then((res) => res.json())
-      .then((data: Booking[]) => setBookings(data));
+    fetchBookings();
   }, []);
+
+  // Fetch bookings from the API
+  const fetchBookings = async () => {
+    try {
+      const response = await fetch('/api/bookings');
+      if (!response.ok) {
+        throw new Error('Failed to fetch bookings');
+      }
+      const data:Booking[] = await response.json();
+      setBookings(data);
+    } catch (err) {
+      setError('Failed to load bookings, Please try again later');
+    }
+  }
 
   const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!selectedClass) return;
 
-    const response = await fetch('/api/book', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        className: selectedClass.type,
-        dateTime: `${selectedDay} ${selectedClass.startTime}`,
-        note,
-      }),
-    });
+    try {
+      const response = await fetch('/api/book', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          className: selectedClass.type,
+          dateTime: `${selectedDay} ${selectedClass.startTime}`,
+          note,
+        }),
+      });
 
-    if (response.ok) {
-      alert('Class booked successfully!');
-      setSelectedClass(null);
-      setNote('');
+      if (!response.ok) {
+        throw new Error('Failed to book class');
+      }
 
-      // Refresh bookings list
       const updatedBookings: Booking[] = await response.json();
       setBookings(updatedBookings);
-    } else {
-      alert('Failed to book class');
+      setSelectedClass(null);
+      setNote('');
+      setError(null);
+      alert('Class booked successfully!');
+    } catch (err) {
+      setError('Failed to book class. Please try again later.');
     }
   };
 

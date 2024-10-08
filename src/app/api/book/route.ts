@@ -17,5 +17,8 @@ export async function POST(request: NextRequest) {
         className,
         dateTime,
         note,
-    }
+        expired: false
+    };
+    bookings.push(newBooking);
+    return NextResponse.json(bookings, { status: 201});
 }
