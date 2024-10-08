@@ -18,22 +18,23 @@ model User {
   password  String
   name      String?
   username  String?
-  role      UserRole
+  role      UserRole  @default(CLIENT)
   createdAt DateTime @default(now()) 
 
   // Relationships
-  clientBookings Booking[] @relation("ClientBookings)
+  ClientBookings Booking[] @relation("ClientBookings")
   trainerBookings Booking[] @relation("TrainerBookings")
   clientOf          User?   @relation("ClientTrainer", fields: [trainerId], references: [id])
   trainerId         Int?
   clients           User[] @relation("ClientTrainer")
+  booking Booking[]
 }
 
 
 
 model Booking {
   id Int @id @default(autoincrement())
-  userId String
+  userId Int
   className String
   sessionType String
   dateTime DateTime
@@ -41,9 +42,10 @@ model Booking {
   createdAt DateTime @default(now())
   expiresAt DateTime
   expired Boolean @default(false)
+  user User @relation(fields: [userId], references: [id])
 
   // Relationships
-  client User @relation('ClientBookings', fields: [clientId], references: [id])
+  client User @relation("ClientBookings", fields: [clientId], references: [id])
   clientId Int
   trainer  User @relation("TrainerBookings", fields: [trainerId],  references: [id])
   trainerId Int
