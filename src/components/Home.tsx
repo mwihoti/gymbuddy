@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import gym1 from "../../assets/gym5.jpg";
 import Link from 'next/link';
-
+import WorkoutPlanner from "@/components/WorkoutPlanner";
 
 const HomePage: React.FC = () => {
   return (
@@ -75,6 +75,8 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <WorkoutPlanner />
     </div>
   );
 };

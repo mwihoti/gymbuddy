@@ -43,7 +43,7 @@ export async function PATCH(request: NextRequest) {
             return NextResponse.json({ error: 'Missing bookingId or status'}, { status: 400})
         }
 
-        const updatedBooking = await prisma,booking.update({
+        const updatedBooking = await prisma.booking.update({
             where: { id: bookingId},
             data: { status },
             include: {

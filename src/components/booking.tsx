@@ -34,7 +34,7 @@ export default function BookingManagement() {
     setError(null);
 
     try {
-      const response = await fetch('/api/trainer/bookings?trainerId=1');
+      const response = await fetch('/api/bookings?trainerId=2');
       if (!response.ok) {
         throw new Error('Failed to fetch bookings');
       }
