@@ -14,7 +14,7 @@ export const fetchBookings = async (clientId?: string, trainerId?: string) => {
     return response.json();
 };
 
-export const creatingBooking = async (bookingData: {
+export const createBooking = async (bookingData: {
     clientId: number;
     trainerId: number;
     className: string;

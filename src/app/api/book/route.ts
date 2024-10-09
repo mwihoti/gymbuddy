@@ -30,6 +30,10 @@ export async function POST(request: NextRequest) {
                 client: { connect: { id: clientId}},            
                 trainer: { connect: { id: trainerId } } // Assuming trainer is the same as userId
             },
+            include: {
+                client: { select: { name: true, email: true}},
+                trainer: { select: { name: true, email: true}}
+            }
         });
 
         return NextResponse.json(newBooking, { status: 201 });

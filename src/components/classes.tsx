@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { fetchBookings, createBooking } from '../lib/api';
 
 type ClassType = 'Cardio' | 'Boxing' | 'Weightlifting' | 'Yoga';
 type DayOfWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
@@ -53,7 +53,6 @@ const generateTimetable = (): Timetable => {
 };
 
 const Classes: React.FC = () => {
-  const router = useRouter();
   const [selectedClass, setSelectedClass] = useState<Class | null>(null);
   const [selectedDay, setSelectedDay] = useState<DayOfWeek>('Monday');
   const [note, setNote] = useState<string>('');
@@ -64,18 +63,15 @@ const Classes: React.FC = () => {
 
   useEffect(() => {
     setTimetable(generateTimetable());
-    fetchBookings();
-  }, []);
+    fetchBookingsData();
+  }, [clientId, trainerId]);
 
   // Fetch bookings from the API
-  const fetchBookings = async () => {
+  const fetchBookingsData = async () => {
     try {
-      const response = await fetch('/api/booking');
-      if (!response.ok) {
-        throw new Error('Failed to fetch booking');
-      }
-      const data:Booking[] = await response.json();
+      const data = await fetchBookings(clientId, trainerId);
       setBookings(data);
+      
     } catch (err) {
       setError('Failed to load bookings, Please try again later');
     }
@@ -86,26 +82,20 @@ const Classes: React.FC = () => {
     if (!selectedClass) return;
 
     try {
-      const response = await fetch('/api/book', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          className: selectedClass.type,
-          dateTime: `${selectedDay} ${selectedClass.startTime}`,
-          note,
-        }),
+      const newBooking = await createBooking({
+        clientId: parseInt(clientId),
+        trainerId: parseInt(trainerId),
+        className: selectedClass.type,
+        dateTime: `${selectedDay} ${selectedClass.startTime}`,
+        note,
+        sessionType: 'regular',
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to book class');
-      }
-
-      const updatedBookings: Booking[] = await response.json();
-      setBookings(updatedBookings);
+      setBookings([...bookings, newBooking]);
       setSelectedClass(null);
       setNote('');
       setError(null);
-      alert('Class booked successfully!');
+      alert('Class booked successfully!')
     } catch (err) {
       setError('Failed to book class. Please try again later.');
     }
