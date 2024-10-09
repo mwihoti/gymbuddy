@@ -32,7 +32,7 @@ import {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError ] = useState('');
 
-    const fetchExercises = async (muscle, difficulty) => {
+    const fetchExercises = async (muscle: string, difficulty: string) => {
         const response = await fetch(`/api/exercises?muscle=${muscle}&difficulty=${difficulty}`);
 
         if (!response.ok) {
@@ -41,7 +41,7 @@ import {
         return response.json();
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
         setError('');
