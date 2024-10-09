@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { fetchBookings } from '../lib/api';
 
 interface Booking {
   id: number;
@@ -20,11 +21,31 @@ const mockBookings: Booking[] = [
 export default function BookingManagement() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [filter, setFilter] = useState<'all' | 'pending' | 'confirmed' | 'cancelled'>('all');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // In a real application, you would fetch bookings from an API
-    setBookings(mockBookings);
+    fetchBookings();
   }, []);
+
+  const fetchBookings = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/trainer/bookings?trainerId=1');
+      if (!response.ok) {
+        throw new Error('Failed to fetch bookings');
+      }
+      const data = await response.json();
+      setBookings(data);
+    } catch (err) {
+      setError('Failed to load bookings. Please try again later')
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   const handleStatusChange = (bookingId: number, newStatus: Booking['status']) => {
     setBookings(bookings.map(booking => 
