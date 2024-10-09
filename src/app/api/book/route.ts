@@ -1,25 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/database';
+import { prisma } from '../../../lib/database'
+import { error } from 'console';
 
 
 export async function POST(request: NextRequest) {
     try {
-        const { userId, className, dateTime, note } = await request.json();
+        const { clientId, trainerId, className, dateTime, note, sessionType } = await request.json();
 
         // Validate the input
-        if (!userId || !className || !dateTime) {
-            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+        const missingFields = [];
+        if (!clientId) missingFields.push('clientId');
+        if (!trainerId) missingFields.push('trainerId');
+        if (!className) missingFields.push('className');
+        if (!dateTime) missingFields.push('dateTime');
+
+        if (missingFields.length > 0) {
+            return NextResponse.json({ error: `Missing required fields: ${missingFields.join(', ')}` }, { status: 400 });
         }
 
         // Create a new booking in the database
         const newBooking = await prisma.booking.create({
             data: {
                 className,
+                sessionType,
                 dateTime: new Date(dateTime),
                 note: note || '',
                 expired: false,
                 expiresAt: new Date(new Date(dateTime).getTime() + 24 * 60 * 60 * 1000), // 24 hours after booking time
-                userId: userId
+                client: { connect: { id: clientId}},            
+                trainer: { connect: { id: trainerId } } // Assuming trainer is the same as userId
             },
         });
 
@@ -33,15 +42,20 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url);
-        const userId = searchParams.get('userId');
+        const clientId = searchParams.get('clientId');
+        const trainerId = searchParams.get('trainerId')
 
-        if (!userId) {
+        if (!clientId || !trainerId) {
             return NextResponse.json({ error: 'Missing userId parameter' }, { status: 400 });
         }
 
         const bookings = await prisma.booking.findMany({
-            where: { userId: parseInt(userId) },
-            orderBy: { dateTime: 'asc' }
+            where: clientId ? { clientId: parseInt(clientId) }: {trainerId: parseInt(trainerId!)},
+            orderBy: { dateTime: 'asc' },
+            include: {
+                client: { select: { name: true, email: true}},
+                trainer: { select: {name: true, email: true }}
+            }
         });
 
         return NextResponse.json(bookings);

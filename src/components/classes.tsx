@@ -70,9 +70,9 @@ const Classes: React.FC = () => {
   // Fetch bookings from the API
   const fetchBookings = async () => {
     try {
-      const response = await fetch('/api/bookings');
+      const response = await fetch('/api/booking');
       if (!response.ok) {
-        throw new Error('Failed to fetch bookings');
+        throw new Error('Failed to fetch booking');
       }
       const data:Booking[] = await response.json();
       setBookings(data);
