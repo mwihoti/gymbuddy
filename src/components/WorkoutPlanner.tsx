@@ -1,144 +1,203 @@
 'use client'
-import React, { useState } from 'react';
-import {
-    Container,
-    Typography,
-    Select,
-    MenuItem,
-    Button,
-    Card,
-    CardContent,
-    CardMedia,
-    Grid,
-    FormControl,
-    InputLabel,
-    Box,
-    CircularProgress,
-    Alert
-  } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 
-  interface Exercise {
-    name: string;
-    type: string;
-    muscle: string;
-    difficulty: string;
-    instructions: string;
-  }
-
-  const WorkoutPlanner = () => {
+const WorkoutPlanner = () => {
     const [fitnessLevel, setFitnessLevel] = useState('');
     const [targetMuscle, setTargetMuscle] = useState('');
+    interface Exercise {
+      name: string;
+      type: string;
+      muscle: string;
+      difficulty: string;
+      instructions: string;
+    }
+    
     const [exercises, setExercises] = useState<Exercise[]>([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError ] = useState('');
-
-    const fetchExercises = async (muscle: string, difficulty: string) => {
-        const response = await fetch(`/api/exercises?muscle=${muscle}&difficulty=${difficulty}`);
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch exercises');
-        }
-        return response.json();
+    const [error, setError] = useState('');
+    const [workoutPlans, setWorkoutPlans] = useState([]);
+    const [planName, setPlanName] = useState('');
+  
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        fetchWorkoutPlans(token);
+      }
+    }, []);
+  
+    const fetchExercises = async (muscle: String) => {
+      const response = await fetch(`/api/exercises?muscle=${muscle}`);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to fetch exercises');
+      }
+      return response.json();
     };
-
+  
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setIsLoading(true);
-        setError('');
-
-        try {
-            const fetchedExercises = await fetchExercises(targetMuscle, fitnessLevel);
-            setExercises(fetchedExercises);
-
-        } catch (error) {
-            console.error('Error fetching exercises:', error);
-            setError('Failed to fetch exercises. Please try again.');
-        } finally {
-            setIsLoading(false);
+      e.preventDefault();
+      if ( !targetMuscle) {
+        setError('Please select both fitness level and target muscle.');
+        return;
+      }
+      setIsLoading(true);
+      setError('');
+      try {
+        const fetchedExercises = await fetchExercises(targetMuscle);
+        setExercises(fetchedExercises);
+        if (fetchedExercises.length === 0) {
+          setError('No exercises found for the selected criteria. Try different options.');
         }
+      } catch (error) {
+        console.error('Error fetching exercises:', error);
+        if (error instanceof Error) {
+          setError(error.message || 'Failed to fetch exercises. Please try again.');
+        } else {
+          setError('Failed to fetch exercises. Please try again.');
+        }
+      } finally {
+        setIsLoading(false);
+      }
     };
-
-    return (
-        <Container maxWidth="md">
-      <Typography variant="h4" component="h1" gutterBottom>
-        Personalized Workout Planner
-      </Typography>
-      <Box component="form" onSubmit={handleSubmit} sx={{ mb: 4 }}>
-        <FormControl fullWidth sx={{ mb: 2 }}>
-          <InputLabel id="fitness-level-label">Fitness Level</InputLabel>
-          <Select
-            labelId="fitness-level-label"
-            value={fitnessLevel}
-            label="Fitness Level"
-            onChange={(e) => setFitnessLevel(e.target.value)}
+  
+    const saveWorkoutPlan = async () => {
+      if (!planName) {
+        setError('Please enter a name for your workout plan.');
+        return;
+      }
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('You must be logged in to save a workout plan.');
+        return;
+      }
+      try {
+        const response = await fetch('/api/workout-plans', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ name: planName, exercises }),
+        });
+        if (!response.ok) {
+          throw new Error('Failed to save workout plan');
+        }
+        setPlanName('');
+        setExercises([]);
+        fetchWorkoutPlans(token);
+      } catch (error) {
+        setError('Failed to save workout plan. Please try again.');
+      }
+    };
+  
+    const fetchWorkoutPlans = async (token: string) => {
+      try {
+        const response = await fetch('/api/workout-plans', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch workout plans');
+        }
+        const data = await response.json();
+        setWorkoutPlans(data);
+      } catch (error) {
+        console.error('Error fetching workout plans:', error);
+      }
+    };
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">Personalized Workout Planner</h1>
+      <form onSubmit={handleSubmit} className="mb-8">
+        <div className="mb-4">
+          <label htmlFor="fitnessLevel" className="block mb-2">Fitness Level</label>
+          <select
+            id="fitnessLevel"
+            
+            className="w-full p-2 border rounded"
           >
-            <MenuItem value="beginner">Beginner</MenuItem>
-            <MenuItem value="intermediate">Intermediate</MenuItem>
-            <MenuItem value="advanced">Advanced</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl fullWidth sx={{ mb: 2 }}>
-          <InputLabel id="target-muscle-label">Target Muscle</InputLabel>
-          <Select
-            labelId="target-muscle-label"
+            <option value="">Select Fitness Level</option>
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="targetMuscle" className="block mb-2">Target Muscle</label>
+          <select
+            id="targetMuscle"
             value={targetMuscle}
-            label="Target Muscle"
             onChange={(e) => setTargetMuscle(e.target.value)}
+            className="w-full p-2 border rounded"
           >
-            <MenuItem value="chest">Chest</MenuItem>
-            <MenuItem value="back">Back</MenuItem>
-            <MenuItem value="legs">Legs</MenuItem>
-            <MenuItem value="shoulders">Shoulders</MenuItem>
-            <MenuItem value="arms">Arms</MenuItem>
-            <MenuItem value="core">Core</MenuItem>
-          </Select>
-        </FormControl>
-        <Button
+            <option value="">Select Target Muscle</option>
+            <option value="chest">Chest</option>
+            <option value="back">Back</option>
+            <option value="legs">Legs</option>
+            <option value="shoulders">Shoulders</option>
+            <option value="arms">Arms</option>
+            <option value="core">Core</option>
+          </select>
+        </div>
+        <button
           type="submit"
-          variant="contained"
-          color="primary"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           disabled={isLoading}
-          fullWidth
         >
-          {isLoading ? <CircularProgress size={24} /> : 'Generate Workout Plan'}
-        </Button>
-      </Box>
+          {isLoading ? 'Generating...' : 'Generate Workout Plan'}
+        </button>
+      </form>
       
-      {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+      {error && <p className="text-red-500 mb-4">{error}</p>}
       
-      <Grid container spacing={3}>
-        {exercises.map((exercise, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="140"
-                image={`/api/placeholder/400/300?text=${encodeURIComponent(exercise.name)}`}
-                alt={`${exercise.name} demonstration`}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {exercise.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  <strong>Type:</strong> {exercise.type}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  <strong>Muscle:</strong> {exercise.muscle}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  <strong>Difficulty:</strong> {exercise.difficulty}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  <strong>Instructions:</strong> {exercise.instructions}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
-    );
-  };
+      {exercises.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Generated Workout Plan</h2>
+          <input
+            type="text"
+            value={planName}
+            onChange={(e) => setPlanName(e.target.value)}
+            placeholder="Enter plan name"
+            className="w-full p-2 border rounded mb-4"
+          />
+          <button
+            onClick={saveWorkoutPlan}
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 mb-4"
+          >
+            Save Workout Plan
+          </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {exercises.map((exercise, index) => (
+              <div key={index} className="border rounded p-4">
+                <h3 className="font-bold mb-2">{exercise.name}</h3>
+                <p><strong>Type:</strong> {exercise.type}</p>
+                <p><strong>Muscle:</strong> {exercise.muscle}</p>
+                <p><strong>Difficulty:</strong> {exercise.difficulty}</p>
+                <p><strong>Instructions:</strong> {exercise.instructions}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
-  export default WorkoutPlanner
+      {workoutPlans.length > 0 && (
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Your Workout Plans</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {workoutPlans.map((plan) => (
+              <div key={plan.id} className="border rounded p-4">
+                <h3 className="font-bold mb-2">{plan.name}</h3>
+                <p>Created: {new Date(plan.createdAt).toLocaleDateString()}</p>
+                <p>Exercises: {plan.exercises.length}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default WorkoutPlanner;

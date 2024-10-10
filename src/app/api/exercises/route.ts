@@ -6,14 +6,14 @@ const BASE_URL = 'https://api.api-ninjas.com/v1/exercises';
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const muscle = searchParams.get('muscle');
-    const difficulty = searchParams.get('difficulty');
+   
 
-    if (!muscle || !difficulty) {
+    if (!muscle) {
         return NextResponse.json({ error: 'Missing required parameters'}, { status: 400 });
     }
 
     try {
-        const response = await fetch(`${BASE_URL}?muscle=${muscle}&difficulty=${difficulty}`, {
+        const response = await fetch(`${BASE_URL}?muscle=${muscle}`, {
             headers: { 
                 'X-Api-Key': API_KEY || '',
                 'Content-Type': 'application/json'
