@@ -18,55 +18,66 @@ model User {
   password  String
   name      String?
   username  String?
-  role      UserRole  @default(CLIENT)
-  createdAt DateTime @default(now()) 
+  role      UserRole @default(CLIENT)
+  createdAt DateTime @default(now())
 
   // Relationships
-  ClientBookings Booking[] @relation("ClientBookings")
+  ClientBookings  Booking[] @relation("ClientBookings")
   trainerBookings Booking[] @relation("TrainerBookings")
-  clientOf          User?   @relation("ClientTrainer", fields: [trainerId], references: [id])
-  trainerId         Int?
-  clients           User[] @relation("ClientTrainer")
- 
+  clientOf        User?     @relation("ClientTrainer", fields: [trainerId], references: [id])
+  trainerId       Int?
+  clients         User[]    @relation("ClientTrainer")
+
+  workoutPlans workoutPlan[]
+
+  @@index([trainerId])
 }
 
-
-
 model Booking {
-  id Int @id @default(autoincrement())
-  className String
+  id          Int      @id @default(autoincrement())
+  className   String
   sessionType String
-  dateTime DateTime
-  note String?
-  createdAt DateTime @default(now())
-  expiresAt DateTime
-  expired Boolean @default(false)
-  
+  dateTime    DateTime
+  note        String?
+  createdAt   DateTime @default(now())
+  expiresAt   DateTime
+  expired     Boolean  @default(false)
 
   //Relationships
   // user User @relation(fields: [userId], references: [id])
-  client User @relation("ClientBookings", fields: [clientId], references: [id])
-  clientId Int
-  trainer  User @relation("TrainerBookings", fields: [trainerId],  references: [id])
+  client    User @relation("ClientBookings", fields: [clientId], references: [id])
+  clientId  Int
+  trainer   User @relation("TrainerBookings", fields: [trainerId], references: [id])
   trainerId Int
+
+  @@index([clientId])
+  @@index([trainerId])
 }
 
 model workoutPlan {
-  id Int @id @default(autoincrement())
-  name String
-  createdAt DateTime @default(now())
+  id        Int        @id @default(autoincrement())
+  name      String
+  createdAt DateTime   @default(now())
   exercises Exercise[]
-  user User @relation(fields: [userId], references: [id])
+
+  // Add user relation
+  user   User @relation(fields: [userId], references: [id])
   userId Int
+
+  @@index([userId])
 }
 
 model Exercise {
-  id Int @id @default(autoincrement())
-  name String
-  type String
-  muscle String
-  difficulty String
+  id           Int    @id @default(autoincrement())
+  name         String
+  type         String
+  muscle       String
+  difficulty   String
   instructions String
-  workoutPlan workoutPlan @relation(fields: [workoutPlanId], references: [id])
+
+  // Relationship to workoutPlan
+  workoutPlan   workoutPlan @relation(fields: [workoutPlanId], references: [id])
   workoutPlanId Int
+
+  @@index([workoutPlanId])
 }
