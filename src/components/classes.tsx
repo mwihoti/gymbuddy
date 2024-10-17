@@ -52,7 +52,7 @@ const generateTimetable = (): Timetable => {
   return timetable;
 };
 
-const Classes: React.FC = () => {
+const Classes: React.FC<{clientId: string, trainerId: string}> = ({ clientId, trainerId}) => {
   const [selectedClass, setSelectedClass] = useState<Class | null>(null);
   const [selectedDay, setSelectedDay] = useState<DayOfWeek>('Monday');
   const [note, setNote] = useState<string>('');

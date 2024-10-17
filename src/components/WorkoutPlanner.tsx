@@ -16,7 +16,14 @@ const WorkoutPlanner = () => {
     const [exercises, setExercises] = useState<Exercise[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
-    const [workoutPlans, setWorkoutPlans] = useState([]);
+    interface WorkoutPlan {
+      id: string;
+      name: string;
+      createdAt: string;
+      exercises: Exercise[];
+    }
+    
+    const [workoutPlans, setWorkoutPlans] = useState<WorkoutPlan[]>([]);
     const [planName, setPlanName] = useState('');
   
     useEffect(() => {
