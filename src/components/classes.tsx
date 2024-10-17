@@ -17,6 +17,7 @@ interface Booking {
   dateTime: string;
   note: string;
   expired: boolean;
+  
 }
 
 type Timetable = Record<DayOfWeek, Class[]>;

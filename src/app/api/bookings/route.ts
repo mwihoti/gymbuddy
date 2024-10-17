@@ -1,6 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../../../lib/database";
 
+export async function POST(request: NextRequest) {
+    try {
+        const { clientId, trainerId, className, dateTime, note, sessionType } = await request.json();
+
+        // Validate the input
+        const missingFields = [];
+        if (!clientId) missingFields.push('clientId');
+        if (!trainerId) missingFields.push('trainerId');
+        if (!className) missingFields.push('className');
+        if (!dateTime) missingFields.push('dateTime');
+
+        if (missingFields.length > 0) {
+            return NextResponse.json({ error: `Missing required fields: ${missingFields.join(', ')}` }, { status: 400 });
+        }
+
+        // Create a new booking in the database
+        const newBooking = await prisma.booking.create({
+            data: {
+                className,
+                sessionType,
+                dateTime: new Date(dateTime),
+                note: note || '',
+                expired: false,
+                expiresAt: new Date(new Date(dateTime).getTime() + 24 * 60 * 60 * 1000),
+                client: { connect: { id: parseInt(clientId) }},            
+                trainer: { connect: { id: parseInt(trainerId) } }
+            },
+            include: {
+                client: { select: { name: true, email: true}},
+                trainer: { select: { name: true, email: true}}
+            }
+        });
+
+        return NextResponse.json(newBooking, { status: 201 });
+    } catch (error) {
+        console.error('Error creating booking:', error);
+        return NextResponse.json({ error: 'An error occurred while creating the booking' }, { status: 500 });
+    }
+}
 
 export async function GET(request: NextRequest) {
     try {

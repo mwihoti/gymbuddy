@@ -52,6 +52,7 @@ export async function GET(request: NextRequest) {
         if (!clientId || !trainerId) {
             return NextResponse.json({ error: 'Missing userId parameter' }, { status: 400 });
         }
+        
 
         const bookings = await prisma.booking.findMany({
             where: clientId ? { clientId: parseInt(clientId) }: {trainerId: parseInt(trainerId!)},
