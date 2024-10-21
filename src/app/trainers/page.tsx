@@ -1,11 +1,11 @@
-import React from "react";
-
-const page: React.FC = () =>  {
-    return (
-        <div>
-            
-        </div>
-    )
+import React from 'react'
+import TrainerShowcasePage from '@/components/Trainers'
+const page: React.FC = () => {
+  return (
+    <div>
+    <TrainerShowcasePage />
+    </div>
+  )
 }
 
-export default page;
+export default page

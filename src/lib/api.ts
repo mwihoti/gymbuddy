@@ -15,8 +15,7 @@ export const fetchBookings = async (clientId?: string, trainerId?: string) => {
 };
 
 export const createBooking = async (bookingData: {
-    clientId: number;
-    trainerId: number;
+  
     className: string;
     dateTime: string;
     note?: string;

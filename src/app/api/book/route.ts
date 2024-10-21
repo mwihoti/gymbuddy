@@ -9,11 +9,14 @@ export async function POST(request: NextRequest) {
 
         // Validate the input
         const missingFields = [];
-        if (!clientId) missingFields.push('clientId');
-        if (!trainerId) missingFields.push('trainerId');
+       
         if (!className) missingFields.push('className');
         if (!dateTime) missingFields.push('dateTime');
 
+        const parsedDateTime = new Date(dateTime);
+        if (isNaN(parsedDateTime.getTime())) {
+            missingFields.push('valid dateTime');
+        }
         if (missingFields.length > 0) {
             return NextResponse.json({ error: `Missing required fields: ${missingFields.join(', ')}` }, { status: 400 });
         }
@@ -23,7 +26,7 @@ export async function POST(request: NextRequest) {
             data: {
                 className,
                 sessionType,
-                dateTime: new Date(dateTime),
+                dateTime: parsedDateTime,
                 note: note || '',
                 expired: false,
                 expiresAt: new Date(new Date(dateTime).getTime() + 24 * 60 * 60 * 1000), // 24 hours after booking time
@@ -49,10 +52,12 @@ export async function GET(request: NextRequest) {
         const clientId = searchParams.get('clientId');
         const trainerId = searchParams.get('trainerId')
 
-        if (!clientId || !trainerId) {
-            return NextResponse.json({ error: 'Missing userId parameter' }, { status: 400 });
+        if (!clientId && !trainerId) {
+            return NextResponse.json({ error: 'Missing clientId or trainerId parameter' }, { status: 400 });
         }
-        
+        const where: any = {};
+        if (clientId) where.clientId = parseInt(clientId);
+        if (trainerId) where.trainerId = parseInt(trainerId);
 
         const bookings = await prisma.booking.findMany({
             where: clientId ? { clientId: parseInt(clientId) }: {trainerId: parseInt(trainerId!)},

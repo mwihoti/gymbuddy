@@ -1,4 +1,7 @@
 import React from 'react';
+import trainer1 from '../../assets/trainer1.jpg';
+import trainer2 from '../../assets/trainer2.jpeg';
+import trainer3 from '../../assets/trainer3.jpeg';
 
 interface Trainer {
   id: number;
@@ -14,27 +17,27 @@ const trainers: Trainer[] = [
     name: "Jane Doe",
     specialties: ["Cardio", "HIIT", "Nutrition"],
     bio: "Jane is a certified personal trainer with 10 years of experience in high-intensity workouts and nutrition planning.",
-    imageUrl: "/api/placeholder/200/200"
+    imageUrl: trainer2.src
   },
   {
     id: 2,
     name: "John Smith",
     specialties: ["Strength Training", "Powerlifting", "Bodybuilding"],
     bio: "John specializes in strength training and has helped numerous clients achieve their muscle-building goals.",
-    imageUrl: "/api/placeholder/200/200"
+    imageUrl: trainer1.src
   },
   {
     id: 3,
     name: "Emily Chen",
     specialties: ["Yoga", "Pilates", "Flexibility"],
     bio: "Emily is a yoga master and flexibility expert, focusing on body-mind balance and injury prevention.",
-    imageUrl: "/api/placeholder/200/200"
+    imageUrl: trainer3.src
   }
 ];
 
 const TrainerCard: React.FC<{ trainer: Trainer }> = ({ trainer }) => (
   <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-    <img src={trainer.imageUrl} alt={trainer.name} className="w-full h-48 object-cover" />
+    <img src={trainer.imageUrl} alt={trainer.name} className="w-full h-48 " />
     <div className="p-4">
       <h3 className="font-bold text-xl mb-2">{trainer.name}</h3>
       <p className="text-gray-700 text-base mb-2">{trainer.bio}</p>

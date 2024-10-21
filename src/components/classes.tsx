@@ -74,6 +74,7 @@ const Classes: React.FC<{clientId: string, trainerId: string}> = ({ clientId, tr
       setBookings(data);
       
     } catch (err) {
+      console.error('Error fetching bookings:', err);
       setError('Failed to load bookings, Please try again later');
     }
   }

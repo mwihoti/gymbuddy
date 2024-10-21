@@ -25,8 +25,21 @@ export default function BookingManagement() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // In a real application, you would fetch bookings from an API
-    fetchBookings();
+    const loadBookings = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        const data = await fetchBookings(); // Use the imported fetchBookings function
+        setBookings(data);
+      } catch (err) {
+        setError('Failed to load bookings. Please try again later');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadBookings();
   }, []);
 
   const fetchBookings = async () => {

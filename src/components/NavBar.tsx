@@ -24,20 +24,17 @@ const NavBar: React.FC = () => {
             <Link href="/home" legacyBehavior>
               <a className="text-gray-700 hover:text-blue-500">Home</a>
             </Link>
-            <Link href="/about" legacyBehavior>
-              <a className="text-gray-700 hover:text-blue-500">About</a>
-            </Link>
-            <Link href="/services" legacyBehavior>
+            
+            <Link href="/trainers" legacyBehavior>
               <a className="text-gray-700 hover:text-blue-500">Services</a>
             </Link>
-            <Link href="/contact" legacyBehavior>
-              <a className="text-gray-700 hover:text-blue-500">Contact</a>
-            </Link>
-          </div>
-          <div className='hidden md:block'>
+            
             <Link href="/auth" >
             <button className='bg-gray-300 hover:bg-gray-500 py-2 px-4 rounded'>Join us</button>
             </Link>
+          </div>
+          <div className='hidden md:block'>
+     
           </div>
 
           {/* Mobile Menu Button */}
