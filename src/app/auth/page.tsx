@@ -3,6 +3,8 @@ import Image from "next/image";
 import React, { use, useState } from "react";
 import gym from "../../../assets/gym4.jpg";
 import { useRouter } from 'next/navigation'
+import { getCurrentUser } from '@/lib/auth';
+
 
 const Page: React.FC = () => {
   // State to toggle between login and sign-up forms
@@ -12,6 +14,8 @@ const Page: React.FC = () => {
   const [username, setUsername] = useState('')
   const [name, setName] = useState('');
   const router = useRouter();
+
+ 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

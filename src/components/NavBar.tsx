@@ -2,13 +2,23 @@
 import React, { useState} from 'react';
 import Link from 'next/link';
 import Image from "next/image";
-import logo from '../../assets/logo.svg'
+import logo from '../../assets/logo.svg';
+import useSWR from 'swr';
 
-const NavBar: React.FC = () => {
+const fetcher = (...args) => fetch(...args).then(res => res.json())
+
+const NavBar: React.FC =  () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+  const { data, error } = useSWR('/api/users', fetcher)
+  console.log(data)
+
+  const handleLogout = () => {
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = '/';
   }
   return (
     <nav className=" shadow">
@@ -29,9 +39,16 @@ const NavBar: React.FC = () => {
               <a className="text-gray-700 hover:text-blue-500">Services</a>
             </Link>
             
-            <Link href="/auth" >
-            <button className='bg-gray-300 hover:bg-gray-500 py-2 px-4 rounded'>Join us</button>
-            </Link>
+            {!data?.user ? (
+              <Link href="/auth">
+                <button className="bg-gray-300 hover:bg-gray-500 py-2 px-4 rounded">Join us</button>
+              </Link>
+            ) : (
+              <>
+                <span className="text-gray-700">Welcome, {data.user.name || data.user.email}</span>
+                <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">Log Out</button>
+              </>
+            )}
           </div>
           <div className='hidden md:block'>
      

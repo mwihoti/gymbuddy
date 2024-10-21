@@ -104,19 +104,20 @@ export async function PUT(request: NextRequest) {
         }
         const updatedBooking = await prisma.booking.update({
             where: { id: bookingId},
-           
+           data: { status },
             include: {
-                client: { select: { name: true }},
+                client: { select: { name: true, email: true}},
             }
         });
 
         const formattedBooking = {
             id: updatedBooking.id,
-            clientName: updatedBooking.client.name || 'Unknown',
+            clientName: updatedBooking.client.name || updatedBooking.client.email || 'Unknown',
             date: updatedBooking.dateTime.toISOString().split('T')[0],
             time: updatedBooking.dateTime.toTimeString().split(' ')[0],
-            sessionType: updatedBooking.className,
-           
+            className: updatedBooking.className,
+            sessionType: updatedBooking.sessionType,
+            status: updatedBooking.status,
         };      
         return NextResponse.json(formattedBooking);
     } catch (error) {

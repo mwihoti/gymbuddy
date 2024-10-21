@@ -16,7 +16,7 @@ model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
-  name      String
+  name      String?
   username  String?
   role      UserRole @default(CLIENT)
   createdAt DateTime @default(now())
@@ -50,11 +50,16 @@ model Booking {
   clientId  Int
   trainer   User? @relation("TrainerBookings", fields: [trainerId], references: [id])
   trainerId Int?
+  status      BookingStatus @default(PENDING)
 
   @@index([clientId])
   @@index([trainerId])
 }
-
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
 model workoutPlan {
   id        Int        @id @default(autoincrement())
   name      String

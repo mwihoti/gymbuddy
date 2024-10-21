@@ -106,8 +106,8 @@ export default function BookingManagement() {
             <th className="border p-2">Client Name</th>
             <th className="border p-2">Date</th>
             <th className="border p-2">Time</th>
+            <th className="border p-2">Class Type</th>
             <th className="border p-2">Session Type</th>
-            <th className="border p-2">Status</th>
             <th className="border p-2">Actions</th>
           </tr>
         </thead>
@@ -119,7 +119,7 @@ export default function BookingManagement() {
       <td className="border p-2">{formatTime(booking.dateTime)}</td>
       <td className="border p-2">{booking.className}</td>
               <td className="border p-2">{booking.sessionType}</td>
-              <td className="border p-2">{booking.status}</td>
+             
               <td className="border p-2">
                 <select 
                   value={booking.status}
