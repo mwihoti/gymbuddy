@@ -14,7 +14,7 @@ export async function GET(request: Request) {
             `user:${userId}`,
             () => prisma.user.findUnique({
                 where: { id: parseInt(userId) },
-                include: { enrolledClasses: true},
+               
             })
         );
         if (!user) {

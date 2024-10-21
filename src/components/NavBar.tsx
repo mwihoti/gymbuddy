@@ -5,7 +5,7 @@ import Image from "next/image";
 import logo from '../../assets/logo.svg';
 import useSWR from 'swr';
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+const fetcher = (...args: [RequestInfo, RequestInit?]) => fetch(...args).then(res => res.json())
 
 const NavBar: React.FC =  () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
