@@ -32,3 +32,16 @@ export const createBooking = async (bookingData: {
     }
     return response.json();
 }
+export async function updateBookingStatus(bookingId: number, status: string) {
+    const response = await fetch( 'api/book', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: bookingId, status }),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to update booking status');
+    }
+    return response.json();
+  }

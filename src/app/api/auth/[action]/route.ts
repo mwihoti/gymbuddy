@@ -11,7 +11,7 @@ export async function POST(
     const body = await request.json();
 
     if (action === 'signup') {
-        const { username, email, password } = body;
+        const {name, username, email, password } = body;
 
         // check if user already exists
 
@@ -25,7 +25,7 @@ export async function POST(
         const hashedPassword = await bcrypt.hash(password, 8);
 
         // create new user
-        const newUser = await prisma.user.create({ data: { username, email, password: hashedPassword } });
+        const newUser = await prisma.user.create({ data: { name, username, email, password: hashedPassword } });
         // Generate new token
         const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 

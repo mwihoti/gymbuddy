@@ -73,3 +73,54 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'An error occurred while fetching the bookings' }, { status: 500 });
     }
 }
+
+
+export async function PUT(request: NextRequest) {
+    try {
+        const user = await getCurrentUser(request);
+
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 403});
+        }
+
+        const { bookingId, status } = await request.json();
+        
+        if (!bookingId || !status) {
+            return NextResponse.json({ error: 'Missing bookingId or status'}, { status: 400})
+        }
+
+        const booking = await prisma.booking.findUnique({
+            where: { id: bookingId},
+            select: { client: true}
+        });
+
+        if (!booking) {
+            return NextResponse.json({ error: 'Booking not found'}, { status: 404});
+        }
+
+        // Allow update if user is a trainer
+        if (user.role !== 'TRAINER' && booking.client.id !== user.id) {
+            return NextResponse.json({ error: "You don't have permission to update booking " }, { status: 403});
+        }
+        const updatedBooking = await prisma.booking.update({
+            where: { id: bookingId},
+           
+            include: {
+                client: { select: { name: true }},
+            }
+        });
+
+        const formattedBooking = {
+            id: updatedBooking.id,
+            clientName: updatedBooking.client.name || 'Unknown',
+            date: updatedBooking.dateTime.toISOString().split('T')[0],
+            time: updatedBooking.dateTime.toTimeString().split(' ')[0],
+            sessionType: updatedBooking.className,
+           
+        };      
+        return NextResponse.json(formattedBooking);
+    } catch (error) {
+        console.error('Error updating booking:', error);
+        return NextResponse.json({ error: 'An error occurred while updating the booking'}, {status: 500})
+    }
+}

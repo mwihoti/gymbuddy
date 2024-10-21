@@ -1,22 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { fetchBookings } from '../lib/api';
+import { fetchBookings, updateBookingStatus } from '../lib/api';
 
 interface Booking {
   id: number;
-  clientName: string;
-  date: string;
-  time: string;
+  client: {name: string | null; email: string | null};
+  dateTime: string;
+  className: string;
   sessionType: string;
   status: 'pending' | 'confirmed' | 'cancelled';
+  expired: boolean;
 }
 
-const mockBookings: Booking[] = [
-  { id: 1, clientName: "Alice Johnson", date: "2024-10-07", time: "10:00 AM", sessionType: "Cardio", status: "pending" },
-  { id: 2, clientName: "Bob Williams", date: "2024-10-08", time: "2:00 PM", sessionType: "Strength Training", status: "confirmed" },
-  { id: 3, clientName: "Charlie Brown", date: "2024-10-09", time: "11:00 AM", sessionType: "Yoga", status: "pending" },
-];
 
 export default function BookingManagement() {
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -25,6 +21,9 @@ export default function BookingManagement() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    loadBookings();
+  }, []);
+
     const loadBookings = async () => {
       setIsLoading(true);
       setError(null);
@@ -39,15 +38,23 @@ export default function BookingManagement() {
       }
     };
 
-    loadBookings();
-  }, []);
+    const handleStatusChange = async (bookingId: number, newStatus: Booking['status']) => {
+      try {
+        await updateBookingStatus(bookingId, newStatus);
+        setBookings(bookings.map(booking =>
+          booking.id === bookingId ? { ...booking, status: newStatus } : booking
+        ));
+      } catch (err) {
+        setError('Failed to update booking status. Please try again.');
+      }
+    }
 
-  const fetchBookings = async () => {
+  const FetchBookings = async () => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await fetch('/api/bookings?trainerId=2');
+      const response = await fetch('/api/book');
       if (!response.ok) {
         throw new Error('Failed to fetch bookings');
       }
@@ -59,12 +66,18 @@ export default function BookingManagement() {
       setIsLoading(false);
     }
   }
-
-  const handleStatusChange = (bookingId: number, newStatus: Booking['status']) => {
-    setBookings(bookings.map(booking => 
-      booking.id === bookingId ? { ...booking, status: newStatus } : booking
-    ));
+  const formatDate = (dateTime: string) => {
+    const date = new Date(dateTime);
+    return date.toLocaleDateString();
   };
+  
+  const formatTime = (dateTime: string) => {
+    const date = new Date(dateTime);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+  
+
+
 
   const filteredBookings = filter === 'all' ? bookings : bookings.filter(booking => booking.status === filter);
 
@@ -101,9 +114,10 @@ export default function BookingManagement() {
         <tbody>
           {filteredBookings.map(booking => (
             <tr key={booking.id}>
-              <td className="border p-2">{booking.clientName}</td>
-              <td className="border p-2">{booking.date}</td>
-              <td className="border p-2">{booking.time}</td>
+              <td className="border p-2">{booking.client.name || booking.client.email}</td>
+              <td className="border p-2">{formatDate(booking.dateTime)}</td>
+      <td className="border p-2">{formatTime(booking.dateTime)}</td>
+      <td className="border p-2">{booking.className}</td>
               <td className="border p-2">{booking.sessionType}</td>
               <td className="border p-2">{booking.status}</td>
               <td className="border p-2">

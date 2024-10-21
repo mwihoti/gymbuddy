@@ -1,14 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../../../lib/database";
+import { getCurrentUser } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
+    const user = await getCurrentUser(request);
+    if (!user) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 403})
+    }
+
     try {
-        const { clientId, trainerId, className, dateTime, note, sessionType } = await request.json();
+        const { className, dateTime, note, sessionType } = await request.json();
 
         // Validate the input
         const missingFields = [];
-        if (!clientId) missingFields.push('clientId');
-        if (!trainerId) missingFields.push('trainerId');
+        
         if (!className) missingFields.push('className');
         if (!dateTime) missingFields.push('dateTime');
 
@@ -71,36 +76,5 @@ export async function GET(request: NextRequest) {
     } catch (error) {
         console.error('Error fetching bookings:', error);
         return NextResponse.json({ error: 'An error occured while fetching the bookings'}, {status: 500})
-    }
-}
-
-export async function PATCH(request: NextRequest) {
-    try {
-        const { bookingId, status } = await request.json();
-        
-        if (!bookingId || !status) {
-            return NextResponse.json({ error: 'Missing bookingId or status'}, { status: 400})
-        }
-
-        const updatedBooking = await prisma.booking.update({
-            where: { id: bookingId},
-            data: { status },
-            include: {
-                client: { select: { name: true }},
-            }
-        });
-
-        const formattedBooking = {
-            id: updatedBooking.id,
-            clientName: updatedBooking.client.name,
-            date: updatedBooking.dateTime.toISOString().split('T')[0],
-            time: updatedBooking.dateTime.toTimeString().split(' ')[0],
-            sessionType: updatedBooking.className,
-            status: updatedBooking.status,
-        };
-        return NextResponse.json(formattedBooking);
-    } catch (error) {
-        console.error('Error updating booking:', error);
-        return NextResponse.json({ error: 'An error occurred while updating the booking'}, {status: 500})
     }
 }

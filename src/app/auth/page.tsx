@@ -10,6 +10,7 @@ const Page: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('')
+  const [name, setName] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -72,8 +73,10 @@ const Page: React.FC = () => {
         <form onSubmit={handleSubmit} className="w-2/3">
         <h2 className="text-2xl font-bold mb-4">{isLogin ? 'Log In' : 'Sign Up'}</h2>
         {!isLogin && (
+          <><input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} className="w-full p-2 mb-4 border rounded" />
+          <br/>
           <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}
-          className="w-full p-2 mb-4 border rounded" />
+              className="w-full p-2 mb-4 border rounded" /></>
                    
         )}
         <input type='email' placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)}

@@ -16,7 +16,7 @@ model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
-  name      String?
+  name      String
   username  String?
   role      UserRole @default(CLIENT)
   createdAt DateTime @default(now())
@@ -35,6 +35,7 @@ model User {
 
 model Booking {
   id          Int      @id @default(autoincrement())
+  
   className   String
   sessionType String
   dateTime    DateTime
