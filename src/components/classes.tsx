@@ -65,12 +65,12 @@ const Classes: React.FC<{clientId: string, trainerId: string}> = ({ clientId, tr
   useEffect(() => {
     setTimetable(generateTimetable());
     fetchBookingsData();
-  }, [clientId, trainerId]);
+  }, []);
 
   // Fetch bookings from the API
   const fetchBookingsData = async () => {
     try {
-      const data = await fetchBookings(clientId, trainerId);
+      const data = await fetchBookings();
       setBookings(data);
       
     } catch (err) {
@@ -83,14 +83,19 @@ const Classes: React.FC<{clientId: string, trainerId: string}> = ({ clientId, tr
     e.preventDefault();
     if (!selectedClass) return;
 
+    // Date object for the selected day and time
+  const [hours, minutes] = selectedClass.startTime.split(':');
+  const bookingDate = new Date();
+  bookingDate.setDate(bookingDate.getDate() + getDayOffset(selectedDay));
+  bookingDate.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+
     try {
       const newBooking = await createBooking({
-        clientId: parseInt(clientId),
-        trainerId: parseInt(trainerId),
         className: selectedClass.type,
-        dateTime: `${selectedDay} ${selectedClass.startTime}`,
+        dateTime: bookingDate.toISOString(),
         note,
         sessionType: 'regular',
+        
       });
 
       setBookings([...bookings, newBooking]);
@@ -99,10 +104,17 @@ const Classes: React.FC<{clientId: string, trainerId: string}> = ({ clientId, tr
       setError(null);
       alert('Class booked successfully!')
     } catch (err) {
-      setError('Failed to book class. Please try again later.');
+      setError(err instanceof Error ? err.message : 'Failed to book class. Please try again later.');
     }
   };
 
+  // Helper function to get the day offset
+const getDayOffset = (day: DayOfWeek): number => {
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const today = new Date().getDay();
+  const targetDay = days.indexOf(day);
+  return (targetDay + 7 - today) % 7;
+};
   const handleTrainerBooking = () => {
     alert('Trainer session booked successfully!');
     setShowTrainerBooking(false);

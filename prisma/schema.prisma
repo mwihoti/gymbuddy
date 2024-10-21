@@ -47,8 +47,8 @@ model Booking {
   // user User @relation(fields: [userId], references: [id])
   client    User @relation("ClientBookings", fields: [clientId], references: [id])
   clientId  Int
-  trainer   User @relation("TrainerBookings", fields: [trainerId], references: [id])
-  trainerId Int
+  trainer   User? @relation("TrainerBookings", fields: [trainerId], references: [id])
+  trainerId Int?
 
   @@index([clientId])
   @@index([trainerId])

@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../lib/database'
-import { error } from 'console';
+import { getCurrentUser } from '@/lib/auth';
 
 
 export async function POST(request: NextRequest) {
     try {
-        const { clientId, trainerId, className, dateTime, note, sessionType } = await request.json();
+        const user = await getCurrentUser(request);
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 404 });
+        }
+        const {  className, dateTime, note, sessionType } = await request.json();
 
         // Validate the input
         const missingFields = [];
@@ -30,12 +34,13 @@ export async function POST(request: NextRequest) {
                 note: note || '',
                 expired: false,
                 expiresAt: new Date(new Date(dateTime).getTime() + 24 * 60 * 60 * 1000), // 24 hours after booking time
-                client: { connect: { id: clientId}},            
-                trainer: { connect: { id: trainerId } } // Assuming trainer is the same as userId
+                client: { connect: { id: user.id}}, 
+                trainer: { connect: { id: user.id} }           
+                
             },
             include: {
                 client: { select: { name: true, email: true}},
-                trainer: { select: { name: true, email: true}}
+                
             }
         });
 
@@ -48,23 +53,17 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
     try {
-        const { searchParams } = new URL(request.url);
-        const clientId = searchParams.get('clientId');
-        const trainerId = searchParams.get('trainerId')
-
-        if (!clientId && !trainerId) {
-            return NextResponse.json({ error: 'Missing clientId or trainerId parameter' }, { status: 400 });
+        const user = await getCurrentUser(request);
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 404 });
         }
-        const where: any = {};
-        if (clientId) where.clientId = parseInt(clientId);
-        if (trainerId) where.trainerId = parseInt(trainerId);
-
+        
         const bookings = await prisma.booking.findMany({
-            where: clientId ? { clientId: parseInt(clientId) }: {trainerId: parseInt(trainerId!)},
+            where: { clientId: user.id },
             orderBy: { dateTime: 'asc' },
             include: {
                 client: { select: { name: true, email: true}},
-                trainer: { select: {name: true, email: true }}
+             
             }
         });
 

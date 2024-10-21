@@ -1,11 +1,8 @@
 const BASE_URL = '/api/book';
 
-export const fetchBookings = async (clientId?: string, trainerId?: string) => {
-    const url = new URL(BASE_URL, window.location.origin);
-    if (clientId) url.searchParams.append('clientId', clientId);
-    if (trainerId) url.searchParams.append('trainerId', trainerId);
-
-    const response = await fetch(url.toString());
+export const fetchBookings = async () => {
+   
+    const response = await fetch(BASE_URL);
 
     if (!response.ok) {
         throw new Error('Failed to fetch bookings');
@@ -29,7 +26,9 @@ export const createBooking = async (bookingData: {
         body: JSON.stringify(bookingData),
     });
     if (!response.ok) {
-        throw new Error('Failed to create booking')
+        const errorData = await response.json();
+        console.error('Booking creation failed:', errorData);
+        throw new Error(`Failed to create booking: ${errorData.error || response.statusText}`);
     }
     return response.json();
 }
