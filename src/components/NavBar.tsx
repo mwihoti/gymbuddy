@@ -38,7 +38,8 @@ const NavBar: React.FC =  () => {
             <Link href="/trainers" legacyBehavior>
               <a className="text-gray-700 hover:text-blue-500">Services</a>
             </Link>
-            
+            <Link href="/exercise" legacyBehavior>
+            <a className='text-gray-700 hover:text-blue-500'>Exercises</a></Link>
             {!data?.user ? (
               <Link href="/auth">
                 <button className="bg-gray-300 hover:bg-gray-500 py-2 px-4 rounded">Join us</button>

@@ -73,10 +73,15 @@ const HomePage: React.FC = () => {
             </button>
             </Link>
           </div>
+
+         
         </div>
+        <div>
+          <WorkoutPlanner />
+          </div>
       </div>
 
-      <WorkoutPlanner />
+      
     </div>
   );
 };
