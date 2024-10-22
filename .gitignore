@@ -12,6 +12,8 @@
 # next.js
 /.next/
 /out/
+.dockerignore
+Dockerfile
 
 # production
 /build

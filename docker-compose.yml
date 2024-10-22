@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: "postgresql://mwihoti:pass@db:5432/kitchengym"
+      JWT_SECRET: "mwihoti"
+      API_NINJAS_KEY: "0K3TmFcZ249Nm3N4ykM9Iw==7vtJDtG8LsEjRANN"
+      UPSTASH_REDIS_REST_URL: "https://alert-guppy-25742.upstash.io"
+      UPSTASH_REDIS_REST_TOKEN: "AWSOAAIjcDFlZDlmNTEwNThiYTY0M2I4OGYyOTRiZjNjMDViNWVjOHAxMA"
+    depends_on:
+      - db
+    networks:
+      - kitchengym-network
+
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: mwihoti
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: kitchengym
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - kitchengym-network
+
+networks:
+  kitchengym-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
