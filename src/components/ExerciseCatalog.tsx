@@ -28,14 +28,35 @@ const exercisesPerMuscle = {
   Abductors: ["Side Leg Raises", "Hip Abduction Machine", "Clamshells"],
   Abs: ["Crunches", "Planks", "Russian Twists"],
   Biceps: ["Bicep Curls", "Hammer Curls", "Chin-Ups"],
-  // ... add exercises for other muscle groups
+  Biceps: ["Bicep Curls", "Hammer Curls", "Chin-Ups"],
+  Calves: ["Calf Raises", "Seated Calf Raises", "Jump Rope"],
+  Chest: ["Push-ups", "Chest Press", "Chest Flys"],
+  Forearms: ["Wrist Curls", "Reverse Wrist Curls", "Farmer's Walk"],
+  Glutes: ["Glute Bridges", "Hip Thrusts", "Bulgarian Split Squats"],
+  Hamstrings: ["Leg Curls", "Romanian Deadlifts", "Good Mornings"],
+  Hip Flexors: ["Leg Raises", "Mountain Climbers", "Lunges"],
+  IT Band: ["Foam Rolling", "Side-Lying Leg Lifts", "Clamshells"],
+  Lats: ["Lat Pulldown", "Pull-Ups", "Bent-Over Rows"],
+  Lower Back: ["Deadlifts", "Supermans", "Back Extensions"],
+  Upper Back: ["Face Pulls", "Reverse Flys", "T-Bar Rows"],
+  Neck: ["Neck Flexion", "Neck Extension", "Neck Side Bends"],
+  Obliques: ["Side Planks", "Bicycle Crunches", "Russian Twists"],
+  Palmar Fascia: ["Grip Strengthening", "Finger Extensions", "Hand Squeezes"],
+  Plantar Fascia: ["Toe Stretches", "Calf Raises", "Ball Rolling"],
+  Quads: ["Squats", "Lunges", "Leg Press"],
+  Shoulders: ["Overhead Press", "Lateral Raises", "Arnold Press"],
+  Traps: ["Shrugs", "Farmer's Walk", "Face Pulls"],
+  Triceps: ["Tricep Dips", "Tricep Pushdowns", "Skull Crushers"]
 }
 
 const exercisesPerEquipment = {
   Dumbbell: ["Dumbbell Bench Press", "Dumbbell Rows", "Dumbbell Lunges"],
   Barbell: ["Barbell Squats", "Barbell Deadlifts", "Barbell Bench Press"],
   Bodyweight: ["Push-ups", "Pull-ups", "Bodyweight Squats"],
-  // ... add exercises for other equipment types
+  Cable: ["Cable Flys", "Cable Tricep Pushdowns", "Cable Rows"],
+  Machine: ["Leg Press", "Chest Press", "Lat Pulldown"],
+  Exercise Ball: ["Ball Crunches", "Ball Hamstring Curls", "Ball Pikes"],
+  EZ Bar: ["EZ Bar Curl", "EZ Bar Skull Crusher", "EZ Bar Rows"]
 }
 
 const exercisesPerMechanics = {
