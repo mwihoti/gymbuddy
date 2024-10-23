@@ -35,7 +35,7 @@ export default function WorkoutPlanner() {
   }
 
   return (
-    <div className="container mx-auto p-4 flex-grow flex flex-col">
+    <div className="container mx-auto p-4 ">
       <h1 className="text-3xl font-bold mb-6">Workout Planner</h1>
       <div className="mb-6">
         <div className="flex flex-col sm:flex-row items-end gap-4">

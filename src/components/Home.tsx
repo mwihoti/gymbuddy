@@ -6,7 +6,7 @@ import WorkoutPlanner from "@/components/workout-planner";
 
 const HomePage: React.FC = () => {
   return (
-    <div className="h-screen flex flex-col items-center justify-between bg-gray-100">
+    <div className="h-screen container flex flex-col items-center justify-between bg-gray-100">
       {/* Heading */}
       <header className="text-center py-8">
         <h1 className="text-emerald-700 text-4xl font-extrabold">KitchenGym Fitness</h1>
@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
       </header>
 
       {/* Main Content: Image and Text Section */}
-      <div className="flex flex-col md:flex-row w-full py-4 gap-4 md:gap-0">
+      <div className="flex flex-col md:flex-row w-full py-4 gap-4  right-5 md:gap-0">
         {/* Image Section */}
         <div className="relative w-full md:w-1/2 flex justify-center">
           <Image
@@ -76,11 +76,11 @@ const HomePage: React.FC = () => {
 
          
         </div>
-        <div>
+        
+      </div>
+      <div className="">
           <WorkoutPlanner />
           </div>
-      </div>
-
       
     </div>
   );

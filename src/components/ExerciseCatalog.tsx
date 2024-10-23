@@ -34,15 +34,15 @@ const exercisesPerMuscle = {
   Forearms: ["Wrist Curls", "Reverse Wrist Curls", "Farmer's Walk"],
   Glutes: ["Glute Bridges", "Hip Thrusts", "Bulgarian Split Squats"],
   Hamstrings: ["Leg Curls", "Romanian Deadlifts", "Good Mornings"],
-  Hip Flexors: ["Leg Raises", "Mountain Climbers", "Lunges"],
-  IT Band: ["Foam Rolling", "Side-Lying Leg Lifts", "Clamshells"],
+  "Hip Flexors": ["Leg Raises", "Mountain Climbers", "Lunges"],
+  "IT Band": ["Foam Rolling", "Side-Lying Leg Lifts", "Clamshells"],
   Lats: ["Lat Pulldown", "Pull-Ups", "Bent-Over Rows"],
-  Lower Back: ["Deadlifts", "Supermans", "Back Extensions"],
-  Upper Back: ["Face Pulls", "Reverse Flys", "T-Bar Rows"],
+  "Lower Back": ["Deadlifts", "Supermans", "Back Extensions"],
+  "Upper Back": ["Face Pulls", "Reverse Flys", "T-Bar Rows"],
   Neck: ["Neck Flexion", "Neck Extension", "Neck Side Bends"],
   Obliques: ["Side Planks", "Bicycle Crunches", "Russian Twists"],
-  Palmar Fascia: ["Grip Strengthening", "Finger Extensions", "Hand Squeezes"],
-  Plantar Fascia: ["Toe Stretches", "Calf Raises", "Ball Rolling"],
+  "Palmar Fascia": ["Grip Strengthening", "Finger Extensions", "Hand Squeezes"],
+  "Plantar Fascia": ["Toe Stretches", "Calf Raises", "Ball Rolling"],
   Quads: ["Squats", "Lunges", "Leg Press"],
   Shoulders: ["Overhead Press", "Lateral Raises", "Arnold Press"],
   Traps: ["Shrugs", "Farmer's Walk", "Face Pulls"],
@@ -55,8 +55,8 @@ const exercisesPerEquipment = {
   Bodyweight: ["Push-ups", "Pull-ups", "Bodyweight Squats"],
   Cable: ["Cable Flys", "Cable Tricep Pushdowns", "Cable Rows"],
   Machine: ["Leg Press", "Chest Press", "Lat Pulldown"],
-  Exercise Ball: ["Ball Crunches", "Ball Hamstring Curls", "Ball Pikes"],
-  EZ Bar: ["EZ Bar Curl", "EZ Bar Skull Crusher", "EZ Bar Rows"]
+  "Exercise Ball": ["Ball Crunches", "Ball Hamstring Curls", "Ball Pikes"],
+  "EZ Bar": ["EZ Bar Curl", "EZ Bar Skull Crusher", "EZ Bar Rows"]
 }
 
 const exercisesPerMechanics = {
