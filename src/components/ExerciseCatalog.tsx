@@ -9,6 +9,10 @@ const muscleGroups = [
   "Obliques", "Palmar Fascia", "Plantar Fascia", "Quads", "Shoulders", "Traps", "Triceps"
 ]
 
+type MuscleGroup = typeof muscleGroups[number]
+type EquipmentType = typeof equipmentTypes[number]
+type MechanicType = typeof mechanics[number]
+
 const popularExercises = [
   { name: "Dumbbell Lateral Raise", views: "9.3M", comments: 80 },
   { name: "Dumbbell Bench Press", views: "6.1M", comments: 82 },
@@ -24,11 +28,11 @@ const equipmentTypes = [
 
 const mechanics = ["Compound", "Isolation"]
 
-const exercisesPerMuscle = {
+const exercisesPerMuscle: Record<MuscleGroup, string[]> = {
   Abductors: ["Side Leg Raises", "Hip Abduction Machine", "Clamshells"],
   Abs: ["Crunches", "Planks", "Russian Twists"],
   Biceps: ["Bicep Curls", "Hammer Curls", "Chin-Ups"],
-  Biceps: ["Bicep Curls", "Hammer Curls", "Chin-Ups"],
+
   Calves: ["Calf Raises", "Seated Calf Raises", "Jump Rope"],
   Chest: ["Push-ups", "Chest Press", "Chest Flys"],
   Forearms: ["Wrist Curls", "Reverse Wrist Curls", "Farmer's Walk"],
@@ -49,7 +53,7 @@ const exercisesPerMuscle = {
   Triceps: ["Tricep Dips", "Tricep Pushdowns", "Skull Crushers"]
 }
 
-const exercisesPerEquipment = {
+const exercisesPerEquipment: Record<EquipmentType, string[]> = {
   Dumbbell: ["Dumbbell Bench Press", "Dumbbell Rows", "Dumbbell Lunges"],
   Barbell: ["Barbell Squats", "Barbell Deadlifts", "Barbell Bench Press"],
   Bodyweight: ["Push-ups", "Pull-ups", "Bodyweight Squats"],
@@ -59,7 +63,7 @@ const exercisesPerEquipment = {
   "EZ Bar": ["EZ Bar Curl", "EZ Bar Skull Crusher", "EZ Bar Rows"]
 }
 
-const exercisesPerMechanics = {
+const exercisesPerMechanics: Record<MechanicType, string[]>  = {
   Compound: ["Squats", "Deadlifts", "Bench Press", "Pull-ups"],
   Isolation: ["Bicep Curls", "Leg Extensions", "Tricep Pushdowns"],
 }
@@ -67,18 +71,16 @@ const exercisesPerMechanics = {
 export default function ExerciseCatalog() {
   const [activeTab, setActiveTab] = useState("muscle-groups")
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
-  const [selectedItem, setSelectedItem] = useState(null)
+  const [selectedItem, setSelectedItem] = useState<string | null>(null)
 
   const handleDownloadPDF = async () => {
     setIsGeneratingPDF(true)
     try {
-      const response = await generatePDF()
+     
       
-      if (!response.ok) {
-        throw new Error('Failed to generate PDF')
-      }
+     
 
-      const blob = await response.blob()
+      const blob = await generatePDF()
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
@@ -95,7 +97,7 @@ export default function ExerciseCatalog() {
     }
   }
 
-  const renderExerciseList = (exercises) => (
+  const renderExerciseList = (exercises: string[]) => (
     <ul className="space-y-2">
       {exercises?.map((exercise, index) => (
         <li key={index} className="text-sm">{exercise}</li>

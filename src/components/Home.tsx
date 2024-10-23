@@ -11,7 +11,7 @@ const HomePage: React.FC = () => {
         <h1 className="text-emerald-700 text-4xl font-extrabold">KitchenGym Fitness</h1>
         <h3 className="text-lg text-gray-600">Where all gets better.</h3>
       </header>
-    <div className=" flex flex-col items-center justify-between bg-gray-100">
+    <div className=" flex items-center justify-between bg-gray-100">
       {/* Heading */}
      
 
@@ -69,7 +69,7 @@ const HomePage: React.FC = () => {
           <div className="mt-6">
             <h2 className="text-xl font-bold mb-2">Book a Session</h2>
             <p className="mb-4">Schedule a personal training session to reach your fitness goals.</p>
-            <Link href="/trainer">
+            <Link href="/classes">
             <button className="mt-2 bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded transition duration-300">
               Book a Trainer
             </button>

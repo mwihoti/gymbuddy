@@ -1,13 +1,13 @@
 import Image from "next/image";
 import NavBar from "@/components/NavBar";
-import HomePage from "@/components/Home";
+import HomePages from "./home/page";
 
 export default function Home() {
   return (
     <div className="grid">
         
        
-       <HomePage />
+       <HomePages />
       
     </div>
   );

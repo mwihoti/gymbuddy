@@ -2,26 +2,30 @@
 
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib'
 
-const exercisesPerMuscle = {
+interface ExerciseCategories {
+  [category: string]: string[]
+}
+
+const exercisesPerMuscle: ExerciseCategories = {
   Abductors: ["Side Leg Raises", "Hip Abduction Machine", "Clamshells"],
   Abs: ["Crunches", "Planks", "Russian Twists"],
   Biceps: ["Bicep Curls", "Hammer Curls", "Chin-Ups"],
   // ... add exercises for other muscle groups
 }
 
-const exercisesPerEquipment = {
+const exercisesPerEquipment: ExerciseCategories = {
   Dumbbell: ["Dumbbell Bench Press", "Dumbbell Rows", "Dumbbell Lunges"],
   Barbell: ["Barbell Squats", "Barbell Deadlifts", "Barbell Bench Press"],
   Bodyweight: ["Push-ups", "Pull-ups", "Bodyweight Squats"],
   // ... add exercises for other equipment types
 }
 
-const exercisesPerMechanics = {
+const exercisesPerMechanics: ExerciseCategories = {
   Compound: ["Squats", "Deadlifts", "Bench Press", "Pull-ups"],
   Isolation: ["Bicep Curls", "Leg Extensions", "Tricep Pushdowns"],
 }
 
-export async function generatePDF() {
+export async function generatePDF(): Promise<Blob> {
   const pdfDoc = await PDFDocument.create()
   let page = pdfDoc.addPage()
   const { width, height } = page.getSize()
@@ -29,65 +33,70 @@ export async function generatePDF() {
   const fontSize = 12
   const lineHeight = fontSize * 1.2
 
-  let yOffset = height - 50
+  let currentY = height - 50
 
   // Title
   page.drawText('Exercise Catalog', {
     x: 50,
-    y: yOffset,
+    y: currentY,
     size: 24,
     font,
     color: rgb(0, 0.53, 0.71),
   })
 
-  yOffset -= lineHeight * 2
+  currentY -= lineHeight * 2
 
   // Function to add a section to the PDF
-  const addSection = (title, exercises) => {
-    if (yOffset < 100) {
+  const addSection = (title: string, exercises: ExerciseCategories): void => {
+    if (currentY < 100) {
       page = pdfDoc.addPage()
-      yOffset = height - 50
+      currentY = height - 50
     }
 
     page.drawText(title, {
       x: 50,
-      y: yOffset,
+      y: currentY,
       size: fontSize + 4,
       font,
       color: rgb(0, 0.53, 0.71),
     })
 
-    yOffset -= lineHeight * 2
+    currentY -= lineHeight * 2
 
-    for (const [category, exerciseList] of Object.entries(exercises)) {
-      if (yOffset < 100) {
+    Object.entries(exercises).forEach(([category, exerciseList]) => {
+      if (currentY < 100) {
         page = pdfDoc.addPage()
-        yOffset = height - 50
+        currentY = height - 50
       }
 
       page.drawText(category, {
         x: 50,
-        y: yOffset,
+        y: currentY,
         size: fontSize + 2,
         font,
         color: rgb(0, 0, 0),
       })
 
-      yOffset -= lineHeight
+      currentY -= lineHeight
 
       exerciseList.forEach((exercise) => {
+        if (currentY < 100) {
+          page = pdfDoc.addPage()
+          currentY = height - 50
+        }
+
         page.drawText(`• ${exercise}`, {
           x: 70,
-          y: yOffset,
+          y: currentY,
           size: fontSize,
           font,
           color: rgb(0.3, 0.3, 0.3),
         })
-        yOffset -= lineHeight
+        currentY -= lineHeight
       })
 
-      yOffset -= lineHeight
-    }
+      currentY -= lineHeight
+    })
   }
 
   // Add sections to the PDF

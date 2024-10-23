@@ -5,7 +5,7 @@ import Image from "next/image";
 import logo from '../../assets/logo.svg';
 import useSWR, { mutate } from 'swr';
 import { useRouter } from 'next/navigation';
-import Cookies from 'js.cookie';
+import Cookies from 'js-cookie';
 const fetcher = (...args: [RequestInfo, RequestInit?]) => fetch(...args).then(res => res.json())
 
 const NavBar: React.FC =  () => {
