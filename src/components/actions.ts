@@ -23,7 +23,7 @@ const exercisesPerMechanics = {
 
 export async function generatePDF() {
   const pdfDoc = await PDFDocument.create()
-  const page = pdfDoc.addPage()
+  let page = pdfDoc.addPage()
   const { width, height } = page.getSize()
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica)
   const fontSize = 12

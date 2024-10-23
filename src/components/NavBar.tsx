@@ -3,23 +3,42 @@ import React, { useState} from 'react';
 import Link from 'next/link';
 import Image from "next/image";
 import logo from '../../assets/logo.svg';
-import useSWR from 'swr';
-
+import useSWR, { mutate } from 'swr';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js.cookie';
 const fetcher = (...args: [RequestInfo, RequestInit?]) => fetch(...args).then(res => res.json())
 
 const NavBar: React.FC =  () => {
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
-  const { data, error } = useSWR('/api/users', fetcher)
+  const { data, error } = useSWR('/api/users', fetcher, {
+    // Prevent revalidation on window focus
+    shouldRetryOnError: false // Prevent retrying on error
+  })
   console.log(data)
 
-  const handleLogout = () => {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    window.location.href = '/';
-  }
+  const handleLogout = async () => {
+    try {
+     Cookies.remove('token');
+
+localStorage.removeItem('token');
+      // Clear SWR cache
+      await mutate('/api/users', null, false);
+
+      mutate(() => true, undefined, { revalidate: false});
+
+      // Redirect to home page
+      router.push('/');
+      router.refresh();
+      
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
   return (
     <nav className=" shadow">
       <div className=" max-w-full mx-auto  px-4 sm:px-6 lg:px-8">
