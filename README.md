@@ -2,6 +2,12 @@
 
 Welcome to **KitchenGym**, a dynamic platform designed to help kitchenGym gym-goers plan workouts, book training sessions, and manage personal fitness goals with trainers.
 
+<div>
+
+<img src="./public/page1.png" alt="demo">
+<img src="./public/page2.png" alt="demo">
+
+</div>
 ## Features
 
 - **User Authentication**: Secure signup and login functionality, including email verification.
