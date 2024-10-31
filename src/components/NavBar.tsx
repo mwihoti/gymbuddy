@@ -101,8 +101,8 @@ localStorage.removeItem('token');
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className='md:hidden bg-white'>
-             <div className="px-2 text-center pt-2 pb-3  gap-5 space-y-2 sm:px-3">
+          <div className='md:hidden '>
+             <div className="px-2 flex flex-col text-center pt-2 pb-3  gap-5 space-y-2 sm:px-3">
              <Link href="/home" legacyBehavior>
               <a className="text-gray-700 hover:text-blue-500">Home</a>
             </Link>
