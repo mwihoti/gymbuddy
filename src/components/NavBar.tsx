@@ -66,8 +66,8 @@ localStorage.removeItem('token');
             ) : (
 
               <>
-              <Link href="/profile">
-                <span className="text-gray-700 cursor-pointer hover:text-blue-500">Welcome, {data.user.name || data.user.email}</span>
+              <Link href="/profile" className='gap-4'>
+                <span className="text-gray-700 cursor-pointer hover:text-blue-500">Welcome, {data.user.username || data.user.email}</span>
                 <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">Log Out</button>
               
               </Link>

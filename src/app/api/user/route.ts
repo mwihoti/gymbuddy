@@ -10,11 +10,12 @@ export async function GET(request: Request) {
 
     }
     try {   
+        
+        console.log(`user:${userId}`);
         const user = await getDataWithCache(
             `user:${userId}`,
             () => prisma.user.findUnique({
                 where: { id: parseInt(userId) },
-               
             })
         );
         if (!user) {
