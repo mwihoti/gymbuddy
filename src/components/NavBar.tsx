@@ -59,6 +59,7 @@ localStorage.removeItem('token');
             </Link>
             <Link href="/exercise" legacyBehavior>
             <a className='text-gray-700 hover:text-blue-500'>Exercises</a></Link>
+            <>
             {!data?.user ? (
               <Link href="/auth">
                 <button className="bg-gray-300 hover:bg-gray-500 py-2 px-4 rounded">Join us</button>
@@ -66,13 +67,14 @@ localStorage.removeItem('token');
             ) : (
 
               <>
-              <Link href="/profile" className='gap-4'>
+              <Link href="/profile" className='flex gap-6'>
                 <span className="text-gray-700 cursor-pointer hover:text-blue-500">Welcome, {data.user.username || data.user.email}</span>
                 <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">Log Out</button>
               
               </Link>
               </>
             )}
+            </>
           </div>
           <div className='hidden md:block'>
      
