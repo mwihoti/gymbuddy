@@ -83,6 +83,9 @@ export async function PUT(request: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 403});
         }
 
+        const { searchParams } = new URL(request.url);
+        const targetBookingId = searchParams.get('bookingId');
+
         const { bookingId, status } = await request.json();
         
         if (!bookingId || !status) {
