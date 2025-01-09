@@ -58,16 +58,20 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 404 });
         }
         
+        const queryConditions = user.role === 'TRAINER' 
+        ? {} // Trainers can see all bookings
+        : { clientId: user.id}; // Regular users can only see their own bookings
+        
         const bookings = await prisma.booking.findMany({
-            where: { clientId: user.id },
-            orderBy: { dateTime: 'asc' },
+            where: queryConditions,
+            orderBy: {dateTime: 'asc'},
             include: {
-                client: { select: { name: true, email: true}},
-             
+                client: { select: {name: true, email: true}},
+                trainer: { select: { name: true, email: true}}
             }
-        });
+        })
 
-        return NextResponse.json(bookings);
+        return NextResponse.json(bookings, { status: 200});
     } catch (error) {
         console.error('Error fetching bookings:', error);
         return NextResponse.json({ error: 'An error occurred while fetching the bookings' }, { status: 500 });
