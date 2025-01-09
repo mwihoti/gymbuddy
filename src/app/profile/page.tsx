@@ -81,9 +81,7 @@ const Profile: React.FC = () => {
           router.push('/auth');
         } catch (error) {
           console.error('Error deleting account:', error);
-        } finally {
-          setLoading(false);
-      }
+        } 
     }
   };
 
@@ -93,10 +91,53 @@ const Profile: React.FC = () => {
 
     return (
         <div>
+           <h1 className='text-2xl font-bold mb-4'>User Profile</h1>
             <h3 className="text-center bold underline text-3xl">
                 Welcome {userData.username || userData.email}
             </h3>
-            <h1>Profile</h1>
+
+            {!editMode ? (
+              <>
+              <p className='mb-2'>
+                <strong>Name: </strong> {userData.name}
+              </p>
+              <p className='mb-4'>
+                <strong>Email: </strong> {userData.email}
+              </p>
+              <button
+            onClick={() => setEditMode(true)}
+            className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+          >
+            Edit Profile
+          </button>
+          <button 
+          onClick={handleDelete}
+          className='bg-red-500 text-white px-4 py-2 rounded'>Delete Account</button>
+              </>
+            ): (
+              <>
+              <div className='mb-4'>
+                <label className='block text-sm font-medium text-gray-700'>Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500'/>
+              </div>
+              <div className='mb-4'>
+                <label className='block text-sm font-medium text-gray-700'>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500'/>
+              </div>
+              <button onClick={()=> setEditMode(false)} className="bg-gray-500 text-white px-4 py-2">Cancel</button>
+              </>
+            )}
+           
         </div>
     );
 };
