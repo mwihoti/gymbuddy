@@ -87,13 +87,15 @@ export async function PUT(request: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 403});
         }
 
-        const { searchParams } = new URL(request.url);
-        const targetBookingId = searchParams.get('bookingId');
-
+      
         const { bookingId, status } = await request.json();
         
         if (!bookingId || !status) {
             return NextResponse.json({ error: 'Missing bookingId or status'}, { status: 400})
+        }
+        const validStatuses = ['PENDING', 'CONFIRMED', 'CANCELLED'];
+        if (!validStatuses.includes(status.toUpperCase())) {
+            return NextResponse.json({error: 'Invalid status value'}, {status: 400});
         }
 
         const booking = await prisma.booking.findUnique({
@@ -111,7 +113,7 @@ export async function PUT(request: NextRequest) {
         }
         const updatedBooking = await prisma.booking.update({
             where: { id: bookingId},
-           data: { status },
+           data: { status: status.toUpperCase()},
             include: {
                 client: { select: { name: true, email: true}},
             }

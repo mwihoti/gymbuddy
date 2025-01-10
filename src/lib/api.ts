@@ -38,7 +38,7 @@ export async function updateBookingStatus(bookingId: number, status: string) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id: bookingId, status }),
+      body: JSON.stringify({ bookingId, status }),
     });
     if (!response.ok) {
       throw new Error('Failed to update booking status');
