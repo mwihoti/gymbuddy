@@ -1,0 +1,92 @@
+[
+  {
+    "id": "class001",
+    "name": "Women’s Strength Training",
+    "time": "Mon, Wed, Fri 6:00 PM - 7:00 PM EAT",
+    "trainer": "Mary Wanjiku",
+    "slots": 12,
+    "description": "A women-only class focusing on strength and conditioning using bodyweight and free weights. Build muscle, boost confidence, and connect with a supportive community.",
+    "location": "Main Gym Floor, Roysambu Fitness Hub"
+  },
+  {
+    "id": "class002",
+    "name": "Women’s Self-Defense Boxing",
+    "time": "Tue, Thu 7:00 PM - 8:00 PM EAT",
+    "trainer": "Jane Doe",
+    "slots": 10,
+    "description": "Learn boxing techniques tailored for women, emphasizing self-defense, agility, and cardio fitness in a safe, empowering environment.",
+    "location": "Boxing Ring, Roysambu Fitness Hub"
+  },
+  {
+    "id": "class003",
+    "name": "HIIT Cardio",
+    "time": "Mon, Wed, Fri 7:00 AM - 8:00 AM EAT",
+    "trainer": "John Smith",
+    "slots": 15,
+    "description": "High-Intensity Interval Training to torch calories and improve cardiovascular health. Suitable for all fitness levels with scalable exercises.",
+    "location": "Cardio Studio, Roysambu Fitness Hub"
+  },
+  {
+    "id": "class004",
+    "name": "Cycling Cardio",
+    "time": "Tue, Thu 6:00 PM - 7:00 PM EAT",
+    "trainer": "Peter Kamau",
+    "slots": 10,
+    "description": "An energetic indoor cycling class with upbeat music and guided intervals to enhance endurance and lower body strength.",
+    "location": "Cycling Studio, Roysambu Fitness Hub"
+  },
+  {
+    "id": "class005",
+    "name": "Taekwondo",
+    "time": "Mon, Wed 6:00 PM - 7:00 PM EAT",
+    "trainer": "Samuel Kimani",
+    "slots": 8,
+    "description": "Develop discipline, flexibility, and self-defense skills through Taekwondo techniques. Open to beginners and advanced practitioners.",
+    "location": "Martial Arts Dojo, Roysambu Fitness Hub"
+  },
+  {
+    "id": "class006",
+    "name": "Boxing Fundamentals",
+    "time": "Tue, Thu 5:00 PM - 6:00 PM EAT",
+    "trainer": "Jane Doe",
+    "slots": 10,
+    "description": "Master boxing basics, including footwork, punching, and defensive techniques. Great for fitness and skill-building.",
+    "location": "Boxing Ring, Roysambu Fitness Hub"
+  },
+  {
+    "id": "class007",
+    "name": "MMA Training",
+    "time": "Mon, Wed, Fri 7:00 PM - 8:00 PM EAT",
+    "trainer": "Michael Otieno",
+    "slots": 8,
+    "description": "Mixed Martial Arts combining striking, grappling, and conditioning for a full-body workout and combat skills.",
+    "location": "MMA Cage, Roysambu Fitness Hub"
+  },
+  {
+    "id": "class008",
+    "name": "Outdoor Yoga",
+    "time": "Sat 7:00 AM - 8:00 AM EAT",
+    "trainer": "Esther Mwangi",
+    "slots": 20,
+    "description": "A refreshing outdoor yoga session focusing on flexibility, mindfulness, and relaxation in the natural setting of Roysambu.",
+    "location": "Roysambu Community Park"
+  },
+  {
+    "id": "class009",
+    "name": "Morning Run",
+    "time": "Sat 8:00 AM - 9:00 AM EAT",
+    "trainer": "John Smith",
+    "slots": 15,
+    "description": "A guided group run through Roysambu’s scenic routes, suitable for all paces, to boost endurance and enjoy the outdoors.",
+    "location": "Roysambu Community Park"
+  },
+  {
+    "id": "class010",
+    "name": "Sprint Drills",
+    "time": "Sat 9:00 AM - 10:00 AM EAT",
+    "trainer": "Peter Kamau",
+    "slots": 12,
+    "description": "High-energy sprint training to improve speed, agility, and cardiovascular fitness. Held outdoors for a dynamic experience.",
+    "location": "Roysambu Community Park"
+  }
+]

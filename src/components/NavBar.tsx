@@ -2,7 +2,7 @@
 import React, { useState} from 'react';
 import Link from 'next/link';
 import Image from "next/image";
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/musclemindlogo.png';
 import useSWR, { mutate } from 'swr';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
@@ -45,7 +45,7 @@ localStorage.removeItem('token');
         <div className="flex justify-between  h-32 items-center">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Image src={logo} alt="Logo" width={120} />
+            <Image src={logo} alt="Logo" width={150} height={120} />
           </div>
 
           {/* Navigation Links */}
@@ -58,7 +58,8 @@ localStorage.removeItem('token');
               <a className="text-gray-700 hover:text-blue-500">Services</a>
             </Link>
             <Link href="/exercise" legacyBehavior>
-            <a className='text-gray-700 hover:text-blue-500'>Exercises</a></Link>
+            <a className='text-gray-700 hover:text-blue-500'>Exercises</a>
+            </Link>
             <>
             {!data?.user ? (
               <Link href="/auth">

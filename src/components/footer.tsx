@@ -9,7 +9,7 @@ const FooterPage: React.FC = () => {
         <div className='container mx-auto px-4'>
             <div className='flex flex-wrap justify-between'>
                 <div className='w-full md:w-1/4 mb-6 md:mb-0'>
-                <h3 className='text-lg font-semibold mb-2'>Fitness Gym</h3>
+                <h3 className='text-lg font-semibold mb-2'> MuscleMind Fitness Gym</h3>
                 <p className='text-sm'>Where all gets better.</p>
                 </div>
                 <div className='w-full md:w-1/4 mb-6 md:mb-0'>
@@ -26,7 +26,7 @@ const FooterPage: React.FC = () => {
                 <p className='text-sm'>123 Fitness Nairobi</p>
 
                 <p className='text-am'>Phone: (254) 723-559412</p>
-                <p className='text-sm'>Email: kitchengym@gmail.com</p>
+                <p className='text-sm'>Email: musclemindgym@gmail.com</p>
 
                 
                 </div>
@@ -58,7 +58,7 @@ const FooterPage: React.FC = () => {
                 </div>
             </div>
             <div className='mt-8 border-t border-gray-700 pt-4 text-sm text-center'>
-                <p>&copy; {new Date().getFullYear()} Fitness gym. All rights preserved.</p>
+                <p>&copy; {new Date().getFullYear()} musclemind gym. All rights preserved.</p>
             </div>
         </div>
         </footer>

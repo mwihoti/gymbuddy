@@ -8,8 +8,22 @@ const HomePage: React.FC = () => {
   return (
 <div>
 <header className="text-center py-8">
-        <h1 className="text-emerald-700 text-4xl font-extrabold">KitchenGym Fitness</h1>
+        <h1 className="text-emerald-700 text-4xl font-extrabold">MuscleMind Gym</h1>
         <h3 className="text-lg text-gray-600">Where all gets better.</h3>
+        <div>
+          <p>
+            <b>Tired of wishing for the perfect body?</b><br></br>
+            Struggling with stress, loneliness, or staying motivated on your fitness journey? <br></br>
+            <b>At MuscleMind Fitness gym, we got you covered - physically and mentally.</b>
+            <br/>
+            We don't just train your muscles - We train your mind too.
+        <b>    🔥 It's more than a workout. It's a mindset.</b><br></br>
+
+Join <b>MuscleMind </b> today and become your strongest self — inside and out.
+<br></br>
+<button className="p-3"><b>👉 [Start Your Journey Now]</b> </button> 
+          </p>
+        </div>
       </header>
     <div className=" flex items-center justify-between bg-gray-100">
       {/* Heading */}
@@ -48,22 +62,6 @@ const HomePage: React.FC = () => {
             experience. We believe that everyone deserves to feel strong,
             confident, and healthy, and we are here to help you get there.
           </p>
-
-          {/* Left Side - Gym Classes */}
-          <div className="mt-6">
-            <h2 className="text-xl font-bold mb-2">Our Gym Classes</h2>
-            <ul className="list-disc pl-5 mb-4">
-              <li>Yoga - Mon & Wed, 6 PM</li>
-              <li>HIIT - Tue & Thu, 7 PM</li>
-              <li>Pilates - Fri, 5 PM</li>
-              <li>Spin Class - Sat, 9 AM</li>
-            </ul>
-            <Link href="/classes">
-            <button className="mt-2 bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded transition duration-300">
-              Enroll Now
-            </button>
-            </Link>
-          </div>
 
           {/* Right Side - Book a Session with Trainer */}
           <div className="mt-6">

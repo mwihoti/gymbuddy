@@ -12,6 +12,12 @@ enum UserRole {
   TRAINER
 }
 
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
@@ -22,21 +28,40 @@ model User {
   createdAt DateTime @default(now())
 
   // Relationships
-  ClientBookings  Booking[] @relation("ClientBookings")
-  trainerBookings Booking[] @relation("TrainerBookings")
-  clientOf        User?     @relation("ClientTrainer", fields: [trainerId], references: [id])
+  ClientBookings  Booking[]  @relation("ClientBookings")
+  trainerBookings Booking[]  @relation("TrainerBookings")
+  clientOf        User?      @relation("ClientTrainer", fields: [trainerId], references: [id])
   trainerId       Int?
-  clients         User[]    @relation("ClientTrainer")
+  clients         User[]     @relation("ClientTrainer")
+  gym_classes     GymClass[] @relation("TrainerClasses")
 
   workoutPlans workoutPlan[]
 
   @@index([trainerId])
 }
 
+model GymClass {
+  id          Int      @id @default(autoincrement())
+  name        String
+  time        String
+  trainerId   Int?
+  trainer     User?    @relation("TrainerClasses", fields: [trainerId], references: [id])
+  slots       Int
+  description String   @db.Text
+  location    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relation to class
+  bookings Booking[] @relation("ClassBookings")
+
+  @@map("gym_classes")
+}
+
 model Booking {
   id          Int      @id @default(autoincrement())
-  
-  className   String
+  classId     Int
+  class       GymClass @relation("ClassBookings", fields: [classId], references: [id], map: "fk_booking_class")
   sessionType String
   dateTime    DateTime
   note        String?
@@ -45,21 +70,19 @@ model Booking {
   expired     Boolean  @default(false)
 
   //Relationships
-  // user User @relation(fields: [userId], references: [id])
-  client    User @relation("ClientBookings", fields: [clientId], references: [id])
+  //user User @relation(fields: [userId], references: [id])
+  client    User          @relation("ClientBookings", fields: [clientId], references: [id])
   clientId  Int
-  trainer   User? @relation("TrainerBookings", fields: [trainerId], references: [id])
+  trainer   User?         @relation("TrainerBookings", fields: [trainerId], references: [id])
   trainerId Int?
-  status      BookingStatus @default(PENDING)
+  status    BookingStatus @default(PENDING)
+  //gymClass   GymClass   @relation(fields: [classId], references: [id], onDelete: Cascade)
 
+  @@index([classId])
   @@index([clientId])
   @@index([trainerId])
 }
-enum BookingStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
-}
+
 model workoutPlan {
   id        Int        @id @default(autoincrement())
   name      String
