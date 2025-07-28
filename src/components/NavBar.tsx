@@ -44,12 +44,14 @@ localStorage.removeItem('token');
       <div className=" max-w-full mx-auto  px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between  h-32 items-center">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <Image src={logo} alt="Logo" width={150} height={120} />
+          <div className="flex items-center px-4 h-32" style={{ maxWidth: 150, maxHeight: 120, overflow: 'hidden' }}>
+            <Image src={logo} alt="Logo" className="object-contain w-full h-full" width={150} height={120} />
           </div>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex space-x-10">
+          <div className=" flex  relative items-center justify-between ">
+
+            <div className='space-x-10 m-5'>
             <Link href="/home" legacyBehavior>
               <a className="text-gray-700 hover:text-blue-500">Home</a>
             </Link>
@@ -59,8 +61,12 @@ localStorage.removeItem('token');
             </Link>
             <Link href="/exercise" legacyBehavior>
             <a className='text-gray-700 hover:text-blue-500'>Exercises</a>
+
             </Link>
-            <>
+            
+            </div>
+            <div className='flex justify-center relative right-2 left-0 h-32'>
+<div className='flex items-center '>
             {!data?.user ? (
               <Link href="/auth">
                 <button className="bg-gray-300 hover:bg-gray-500 py-2 px-4 rounded">Join us</button>
@@ -68,14 +74,22 @@ localStorage.removeItem('token');
             ) : (
 
               <>
-              <Link href="/profile" className='flex gap-6'>
-                <span className="text-gray-700 cursor-pointer hover:text-blue-500">Welcome, {data.user.username || data.user.email}</span>
-                <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">Log Out</button>
+          <span className="text-gray-700 cursor-pointer hover:text-blue-500">
+            <Link href="/profile">
+                     <b>Welcome, {data.user.username || data.user.email}    !</b>   
+                     </Link>
+                      </span>
+                      <button
+                        onClick={handleLogout}
+                        className="bg-red-500 hover:bg-red-700 text-white py-2 m-3 px-4 rounded"
+                      >
+                        Log Out
+                      </button>
               
-              </Link>
               </>
             )}
-            </>
+            </div>
+            </div>
           </div>
           <div className='hidden md:block'>
      
