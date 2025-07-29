@@ -54,7 +54,7 @@ Join <b>MuscleMind </b> today and become your strongest self — inside and out.
 
         {/* Text Section */}
         <div className="w-full md:w-1/2 flex flex-col justify-center bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
+          <h2 className="text-2xl font-bold mb-4">Mission</h2>
           <p className="mb-4">
             Our mission is to provide a fitness experience that is welcoming,
             inclusive, and empowering to all. We are committed to helping you

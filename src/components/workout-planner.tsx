@@ -70,12 +70,12 @@ export default function WorkoutPlanner() {
   const validMuscleGroups = Object.keys(exerciseDatabase).join(', ')
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Workout Planner</h1>
+    <div className="flex flex-col  items-center justify-center mx-auto p-4">
+      <h1 className="text-3xl  font-bold mb-6">Workout Planner</h1>
       <div className="mb-6">
         <div className="flex flex-col sm:flex-row items-end gap-4">
           <div className="w-full sm:w-auto">
-            <label htmlFor="muscle" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="muscle" className="block text-l text-gray-800 mb-6 font-bold">
               Muscle to train
             </label>
             <input
@@ -109,7 +109,7 @@ export default function WorkoutPlanner() {
           </div>
         </div>
       ) : (
-        <p className="text-gray-500">
+        <p className="text-gray-800">
           Enter a muscle group ({validMuscleGroups}) and click "Generate Workout" to see your personalized plan.
         </p>
       )}

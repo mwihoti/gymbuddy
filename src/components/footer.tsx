@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import React from 'react'
+import logo from '../../assets/musclemindlogo.png';
+import Image from "next/image";
 
 const FooterPage: React.FC = () => {
 
@@ -8,7 +10,11 @@ const FooterPage: React.FC = () => {
         <footer className='bg-gray-800 text-white p-8'> 
         <div className='container mx-auto px-4'>
             <div className='flex flex-wrap justify-between'>
+                 <div className="flex items-center px-4 h-32" style={{ overflow: 'hidden' }}>
+            <Image src={logo} alt="Logo" className="object-contain rounded w-full h-full" width={150} height={150} />
+          </div>
                 <div className='w-full md:w-1/4 mb-6 md:mb-0'>
+                  
                 <h3 className='text-lg font-semibold mb-2'> MuscleMind Fitness Gym</h3>
                 <p className='text-sm'>Where all gets better.</p>
                 </div>
