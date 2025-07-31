@@ -4,9 +4,10 @@ import gym1 from "../../assets/gym5.jpg";
 import Link from 'next/link';
 import WorkoutPlanner from "@/components/workout-planner";
 
+
 const HomePage: React.FC = () => {
   return (
-<div>
+<div className="flex flex-col">
 <header className="text-center py-8">
         <h1 className="text-emerald-700 text-4xl font-extrabold">MuscleMind Gym</h1>
         <h3 className="text-lg text-gray-600">Where all gets better.</h3>
@@ -78,7 +79,7 @@ Join <b>MuscleMind </b> today and become your strongest self — inside and out.
         </div>
         
       </div>
-     
+    
       
     </div>
     </div>
