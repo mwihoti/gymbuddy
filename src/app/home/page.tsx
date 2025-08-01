@@ -8,7 +8,7 @@ import GymCtaSection from "@/components/gymCta";
 const HomePages: React.FC = () => {
     return (
         <div className="flex flex-col gap-8 pb-8">
-          <GymCtaSection />
+         {/* <GymCtaSection /> */}
         <HomePage />
         <WorkoutPlanner />
         <ClassesT />
