@@ -42,17 +42,17 @@ const Page: React.FC = () => {
     }
   }
   return (
-    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-br rounded-lg from-gray-900 via-purple-900 to-gray-900">
       {/* Left Side: Image and Welcome Message */}
       <div className="md:w-1/2 flex flex-col items-center justify-center p-6">
-        <h2 className="text-4xl font-bold text-emerald-700 mb-6">Welcome to KitchenGym</h2>
+        <h2 className="text-4xl font-bold text-white mb-6">Welcome to MuscleMind Gym</h2>
         <div className="w-full flex justify-center">
           <Image className="rounded-lg shadow-lg" src={gym} alt="gym" width={800} height={400} />
         </div>
       </div>
 
       {/* Right Side: Login/Sign Up Toggle Section */}
-      <div className="md:w-1/2 bg-white p-8 rounded-lg shadow-lg flex flex-col items-center">
+      <div className="md:w-1/2 bg-gradient-to-br  from-gray-900 via-indigo-600 to-gray-900 p-8 rounded-lg shadow-lg flex flex-col items-center">
         {/* Toggle Buttons */}
         <div className="mb-6 flex space-x-6">
           <button
@@ -77,18 +77,18 @@ const Page: React.FC = () => {
         <form onSubmit={handleSubmit} className="w-2/3">
         <h2 className="text-2xl font-bold mb-4">{isLogin ? 'Log In' : 'Sign Up'}</h2>
         {!isLogin && (
-          <><input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} className="w-full p-2 mb-4 border rounded" />
+          <><input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} className="w-full p-4 mb-4 border rounded" />
           <br/>
           <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-2 mb-4 border rounded" /></>
+              className="w-full p-4 mb-4 border rounded" /></>
                    
         )}
         <input type='email' placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)}
-        className="w-full p-2 mb-4 border rounded" />
+        className="w-full p-4 mb-4 border rounded" />
         <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)}
-        className="w-full p-2 mb-4 border rounded" />
+        className="w-full p-4 mb-4 border rounded" />
 
-        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">
+        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-xl">
           { isLogin ? 'Log In' : 'Sign Up'}
         </button>
         </form>

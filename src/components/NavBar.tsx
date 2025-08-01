@@ -53,14 +53,14 @@ localStorage.removeItem('token');
 
             <div className='space-x-10 m-5'>
             <Link href="/home" legacyBehavior>
-              <a className="text-gray-700 hover:text-blue-500">Home</a>
+              <a className="text-gray-200 hover:text-blue-500">Home</a>
             </Link>
             
             <Link href="/trainers" legacyBehavior>
-              <a className="text-gray-700 hover:text-blue-500">Services</a>
+              <a className="text-gray-200 hover:text-blue-500">Services</a>
             </Link>
             <Link href="/exercise" legacyBehavior>
-            <a className='text-gray-700 hover:text-blue-500'>Exercises</a>
+            <a className='text-gray-200 hover:text-blue-500'>Exercises</a>
 
             </Link>
             
@@ -74,7 +74,7 @@ localStorage.removeItem('token');
             ) : (
 
               <>
-          <span className="text-gray-700 cursor-pointer hover:text-blue-500">
+          <span className="text-gray-200 cursor-pointer hover:text-blue-500">
             <Link href="/profile">
                      <b>Welcome, {data.user.username || data.user.email}    !</b>   
                      </Link>
