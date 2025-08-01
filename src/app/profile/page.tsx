@@ -115,8 +115,8 @@ const Profile: React.FC = () => {
   if (!userData) return <p>{error || 'User not found'}</p>;
 
   return (
-    <div className="mx-auto text-center max-w-md">
-      <h1 className="text-2xl font-bold mb-4">User Profile</h1>
+    <div className="mx-auto text-white p-10 text-center max-w-md">
+      <h1 className="text-2xl  font-bold mb-4">User Profile</h1>
       <h3 className="bold underline text-3xl mb-4 py-2">
         Welcome {userData.username || userData.email}
       </h3>

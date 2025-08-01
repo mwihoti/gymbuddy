@@ -223,7 +223,7 @@ const HomePage = () => {
               <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mb-2">
                 {stat.number}
               </div>
-              <div className='w-10 h-10'>
+              <div className=' text-4xl '>
                 {stat.icons}
                 </div>
               <div className="text-cyan-200  text-l font-bold uppercase tracking-wider">
