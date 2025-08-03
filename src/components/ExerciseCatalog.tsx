@@ -35,6 +35,7 @@ const exercisesPerMuscle: Record<MuscleGroup, string[]> = {
 
   Calves: ["Calf Raises", "Seated Calf Raises", "Jump Rope"],
   Chest: ["Push-ups", "Chest Press", "Chest Flys"],
+  Adductors: ["Side lunge", "wide squat", "frog strech"],
   Forearms: ["Wrist Curls", "Reverse Wrist Curls", "Farmer's Walk"],
   Glutes: ["Glute Bridges", "Hip Thrusts", "Bulgarian Split Squats"],
   Hamstrings: ["Leg Curls", "Romanian Deadlifts", "Good Mornings"],
@@ -106,10 +107,10 @@ export default function ExerciseCatalog() {
   )
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Exercise Catalog</h1>
+    <div className="container mx-auto p-4 ">
+      <h1 className="text-3xl text-white font-bold mb-6">Exercise Catalog</h1>
       <div className="flex justify-between items-center mb-6">
-        <p className="text-gray-600">
+        <p className="text-gray-300 text-xl">
           Choose the muscle group you want to target. Use the sort and filter options to find the best exercises for your equipment, experience, and goals.
         </p>
         <div className="flex gap-2">
@@ -130,10 +131,10 @@ export default function ExerciseCatalog() {
             onChange={(e) => setActiveTab(e.target.value)}
             className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
           >
-            <option value="muscle-groups">Muscle Groups</option>
-            <option value="popular">Most Popular</option>
-            <option value="equipment">By Equipment</option>
-            <option value="mechanics">By Mechanics</option>
+            <option value="muscle-groups" className='text-2xl'>Muscle Groups</option>
+            <option value="popular" className='text-2xl'>Most Popular</option>
+            <option value="equipment" className='text-2xl'>By Equipment</option>
+            <option value="mechanics" className='text-2xl'>By Mechanics</option>
           </select>
         </div>
         <div className="hidden sm:block">
@@ -154,19 +155,20 @@ export default function ExerciseCatalog() {
           </nav>
         </div>
       </div>
-
+s
       {activeTab === 'muscle-groups' && (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-4 ">
           {muscleGroups.map((group) => (
             <div
               key={group}
               onClick={() => setSelectedItem(group)}
-              className="cursor-pointer p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              className="cursor-pointer py-10 px-10 border rounded-lg shadow-sm hover:shadow-md transition-shadow"
             >
               <h3 className="font-semibold">{group}</h3>
               <p className="text-blue-600 hover:underline mt-2">
                 {group} Exercises
               </p>
+              <h3 className='text-white'>Don't worry we got you covered. You can exercise at home</h3>
             </div>
           ))}
         </div>
@@ -175,7 +177,7 @@ export default function ExerciseCatalog() {
       {activeTab === 'popular' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {popularExercises.map((exercise) => (
-            <div key={exercise.name} className="p-4 border rounded-lg shadow-sm">
+            <div key={exercise.name} className="py-10 px-10  border rounded-lg shadow-sm">
               <h3 className="font-semibold">{exercise.name}</h3>
               <p className="text-gray-600">{exercise.views} Views</p>
               <p className="text-gray-600">{exercise.comments} Comments</p>
