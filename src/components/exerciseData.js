@@ -182,13 +182,13 @@ export const exerciseData = {
         difficulty: "Intermediate",
         equipment: "Barbell, Dumbbells, kettlebells"
     },
-    "lateral Raises": {
+    "Lateral Raises": {
         image: "/assets/exercises/lateralRaises.png",
         description: "Shoulder Isolation exercise targeting lateral deltoids, the muscles on the sides of your shoulders.",
         difficulty: "Beginner",
         equipment: "Dumbbell, kettleBells"
     },
-    "Arnold press": {
+    "Arnold Press": {
         image: "/assets/exercises/arnoldpress.png",
         description: "Rotational shoulder press variation, characterized by a rotational movement of the wrist during the lift.",
         difficulty: "Intermediate",
@@ -360,7 +360,35 @@ export const exerciseData = {
     description: "Physical movements that focus on straightening the fingers, extending them away from the palm",
     difficulty: "Beginner",
     equipment: "finger expanders, resistance bands, hand extension exercisers"
+  },
+  "Hand Squeezes": {
+    image: "/assets/exercises/handsquezes.png",
+    description: "A physical action, a stress relief exercise. Involve squeezing a ball/ hand grippers",
+    difficulty: "Beginner",
+    equipment: "hand grippers, ball "
+
+  },
+  "Toe Stretches": {
+    image: "/assets/exercises/toestretches.png",
+    description: "Involvess movement like lifting, spreading, flexing and bending toes. Targets to improve the flexibility, mobility and strenght of the toes and feet",
+    difficulty: "Beginner",
+    equipment: "Toes"
+     
+  },
+  "Ball Rolling": {
+    image: "/assets/exercises/ballrolling.png",
+    description: "Involve using a stability ball or medicine ball to perform various movement, often for cire strengthening and conditioning",
+    difficulty: "Beginner",
+    equipment: "Stability ball"
+  },
+  "Shrugs": {
+    image: '/assets/exercises/shrugs.png',
+    description: "An exercise that primarily targets the trapezius muscles. Involves raising shoulder towards the ear of holding weights and then lowering them back down",
+    difficulty: "Beginner",
+    equipment: "Barbell, Weights, Dumbbells"
   }
+
+  
 
 }
 
