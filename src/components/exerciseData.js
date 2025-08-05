@@ -30,6 +30,43 @@ export const exerciseData = {
         difficulty: "Intermediate",
         equipment: "Dumbbell" 
     },
+    "Push-ups": {
+        image: "/assets/exercises/pushups.png",
+        description: "Common calisthenics exercise performed in a prone position by raising and lowering the body using the arms, targets pectoral muscles, deltoids, triceps and core.",
+        difficulty: "Beginner",
+        equipment: "BodyWeight"
+
+    },
+    "Side Leg Raises": {
+        image: "/assets/exercises/sidelegraise.png",
+        description: "Bodyweight exercise that targets the hip abductors, primarily the gluteus medius. Performed when lying  on your side with body in a straight line, top leg is lifted up towards the ceiling, then lowered back down in control",
+        difficulty: "Beginner",
+        equipment: "BodyWeight"
+    },
+    "Hip Abduction Machine": {
+        image: '/assets/exercises/hipabductionmachine.png',
+        description: "Machine-based exercise that targets hip abductor muscles.",
+        difficulty: "Beiginner",
+        equipment: "Hip sbduction machime"
+    },
+    "Clamshells": {
+        image: "/assets/exercises/clamshells.png",
+        description: "Strenthens the gluteus medius and dip external rotator muscles. Performed lying on your side with your knees bent and stacked on top of each other. While keeping your feet together, you lift the top knee up and away from the bottom knee resembling an opening clamshell, before lowering it back down",
+        difficulty: "Beginner",
+        equipment: "BodyWeight"
+    },
+      "Wide squat": {
+        image: '/assets/exercises/squats.png',
+        description: "Full-body strength exercise where you lower your hips from a standing position and then return to the startiing position.",
+        difficulty: "Beginner",
+        equipment: "BodyWeight, Dumbbells, Barbell, kettlebells, resistance bands"
+    },
+    "Foam Rolling": {
+        image: '/assets/exercises/foamrolling.png',
+        description: "Self-massage technique that uses a cylindrical foam roller to apply pressure to muscles and surrounding tissues, aiming to relieve muscle tightness, soreness and improve range of motion.",
+        difficulty: "Beginner",
+        equipment: "Foam roller"
+    },
 
     // leg exercises
     "Squats": {
@@ -41,6 +78,18 @@ export const exerciseData = {
     "Lunges": {
         image: "/assets/exercises/lunges.png",
         description: "lower body exercises, targeting muscles like the quadriceps, hamstrings, glutes and calves",
+        difficulty: "Beginner",
+        equipment: "BodyWeight, BarBell, Dumbbells"
+    },
+     "Leg Raises": {
+        image: "/assets/exercises/sidelegraise.png",
+        description: "lower body exercises, targeting muscles like the quadriceps, hamstrings, glutes and calves. Involves stepping to the side and bending one knee while keeping the other leg straight.",
+        difficulty: "Beginner",
+        equipment: "BodyWeight, BarBell, Dumbbells"
+    },
+     "Side lunge": {
+        image: "/assets/exercises/sidelunges.png",
+        description: "lower body exercises, targeting muscles like the quadriceps, hamstrings, glutes and calves. Involves stepping to the side and bending one knee while keeping the other leg straight.",
         difficulty: "Beginner",
         equipment: "BodyWeight, BarBell, Dumbbells"
     },
@@ -62,7 +111,7 @@ export const exerciseData = {
         difficulty: "Intermediate",
         equipment: "Dumbell, Barbell"
     },
-    "Bulgarian split squats": {
+    "Bulgarian Split Squats": {
            image: "/assets/exercises/bulgariansplitsquats.png",
     description: "Advanced single-leg squat variation, effective at building muscle and strength hitting glutes, hamstrings and quads.",
     difficulty: "Advanced",
@@ -71,7 +120,7 @@ export const exerciseData = {
 
     //Back exercises
     "Pull-Ups": {
-        image: "assets/exercises/pull-ups.png",
+        image: "/assets/exercises/pull-ups.png",
         description: "Upper body pulling exercise,  where you lift your body weight while suspended from a bar, using your arms to pull yourself up until your chin is over the bar",
         difficulty: "Intermediate",
         equipment: "BodyWeight"
@@ -82,8 +131,14 @@ export const exerciseData = {
         difficulty: "Intermediate",
         equipment: "Barball"
     },
+    "T-Bar Rows": {
+        image: "/assets/exercises/tbarrow.png",
+        description: "Compound exercise that primarily targets the back muscles, psrticulary the lats, the erectors and rhomboids",
+        difficulty: "Beginner",
+        equipment: "Barbell, machine"
+    },
     "Lat Pulldown": {
-        image: "/assets/exercises/latpulldon.png",
+        image: "/assets/exercises/latpulldown.png",
         description: "Machine exercise targeting latissimus dorsi",
         difficulty: "Beginner",
         equipment: "Machine"
@@ -160,6 +215,18 @@ export const exerciseData = {
         difficulty: "Intermediate",
         equipment: "Dumbbell, Barbell"
     },
+        "Skull Crushers": {
+        image: "/assets/exercises/skullcrusher.png",
+        description: "Also known as lying triceps extensions, strength training exercise that primarily targets the triceps muscles in the back of the upper arm",
+        difficulty: "Intermediate",
+        equipment: "Dumbbell, Barbell"
+    },
+    "Frog strech": {
+        image: "/assets/exercises/frogStretch.png",
+        description: "Hip-opening exercise that primarily targets the inner thighs ang groin area. Involves kneeling position with legs spread wide, toes pointed outwards, and the hips moving back towards the heels.",
+        difficulty: "Beginner",
+        equipment: "BodyWeight"
+    },
 
     // core exercise
     "Russian Twists": {
@@ -174,8 +241,20 @@ export const exerciseData = {
         difficulty: "Beginner",
         equipment: "BodyWeight"
     },
-    "Bicylcle Crunches": {
+     "Planks": {
+        image: "/assets/exercises/planks.png",
+        description: "Core strengthening exercise where you hold a position similar to a push-up, but with your fore-arms on the ground instead of your hands, maintaining a straight line from head to heels.",
+        difficulty: "Beginner",
+        equipment: "BodyWeight"
+    },
+    "Bicycle Crunches": {
         image: "/assets/exercises/bicyclecrunches.png",
+        description: "Abdominal exercise that involves a twisting motion, mimicking the action of pedaling a bicycle, to engage the core muscles, particularly the obliques.",
+        difficulty: "Beginner",
+        equipment: "Bodyweight"
+    },
+     "Crunches": {
+        image: "/assets/exercises/crunches.png",
         description: "Abdominal exercise that involves a twisting motion, mimicking the action of pedaling a bicycle, to engage the core muscles, particularly the obliques.",
         difficulty: "Beginner",
         equipment: "Bodyweight"
@@ -189,7 +268,7 @@ export const exerciseData = {
         equipment: "BodyWeight"
     },
     "Hip Thrusts": {
-        imsge: "/assets/exercises/hipthrusts.png",
+        image: "/assets/exercises/hipthrusts.png",
         description: "Strength training exercise where you lift your hips off the ground while lying on your back, typically with your upper back supported on the bench.",
         difficulty: "Beginner",
         equipment: "BodyWeight"
@@ -220,6 +299,7 @@ export const exerciseData = {
         difficulty: "Beginner",
         equipment: "Dumbbell"
     },
+
     "Reverse Wrist Curls": {
     image: "/assets/exercises/revrsewristcurls.png",
     description: "Forearm extensor exercise, strengthening the muscles on the back of the forearm, wrist extensors.",
@@ -245,15 +325,53 @@ export const exerciseData = {
     description: "Dynamic bodyweight movement that mimics the act of climbing, engaging multiple muscle groups simultaneously, primarily targeting the core, arms, and legs. ",
     equipment: "Bodyweight"
   },
-  "Leg Raises": {
-    image: "/assets/exercises/legraises.png",
+  "Side-Lying Leg Lifts": {
+    image: "/assets/exercises/sidelegraise.png",
     description: "Lower abdominal exercise",
     difficulty: "Intermediate",
     equipment: "Bodyweight"
   },
+  "Neck Flexion": {
+    image: "/assets/exercises/neckflexion.png",
+    description: "Movement of bending your neck forward, bringing your chin toward your chest.",
+    difficulty: "Beginner",
+    equipment: "BodyWeight"
+  },
+  "Neck Extension": {
+    image: "/assets/exercises/neckextension.png",
+    description: "Movement where you tilt your head backward, extending the neck and looking upward.",
+    difficulty: "Beginner",
+    equipment: "BodyWeight"
+  },
+  "Neck Side Bends": {
+    image: "/assets/exercises/necksidebends.png",
+    description: "Type of neck exercise where you tilt your head to the side, bringing your ear torward your shoulder, to stretch and improve neck mobility.",
+    difficulty: "Beginner",
+    equipment: "BodyWeight"
+  },
+  "Grip Strengthening": {
+    image: "/assets/exercises/gripstrengthening.png",
+    description: "Exercise that strengthens the muscle in your hands, wrists and forearm, improving your ability to grip object firmly",
+    difficulty: "Beginner",
+    equipment: "hand grippers, finger exercisers, resistance bands"
+  },
+  "Finger Extensions": {
+    image: "/assets/exercises/fingerextensions.png",
+    description: "Physical movements that focus on straightening the fingers, extending them away from the palm",
+    difficulty: "Beginner",
+    equipment: "finger expanders, resistance bands, hand extension exercisers"
+  }
 
 }
 
-export const getExerciseData = (exerciseData) => {
-    return exerciseData[exercise]
+export const getExerciseData = (exerciseName) => {
+    return exerciseData[exerciseName] || {
+        image: "/assets/exercises/default.png" | "/assets/musclemindlogo",
+        description: "Exercise Description not available, working on that",
+        difficulty: "unknown",
+        equipment: "unknown"
+    }
 }
+
+
+export default exerciseData

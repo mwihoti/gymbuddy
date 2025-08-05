@@ -2,11 +2,11 @@
 import React, { useState} from 'react';
 import Link from 'next/link';
 import Image from "next/image";
-import logo from '../../assets/musclemindlogo.png';
 import useSWR, { mutate } from 'swr';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 const fetcher = (...args: [RequestInfo, RequestInit?]) => fetch(...args).then(res => res.json())
+const logo = '/assets/musclemindlogo.png';
 
 const NavBar: React.FC =  () => {
   const router = useRouter();

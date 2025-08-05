@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react'
-import logo from '../../assets/musclemindlogo.png';
 import Image from "next/image";
+const logo = '/assets/musclemindlogo.png';
 
 const FooterPage: React.FC = () => {
 
