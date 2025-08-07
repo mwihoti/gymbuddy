@@ -386,7 +386,128 @@ export const exerciseData = {
     description: "An exercise that primarily targets the trapezius muscles. Involves raising shoulder towards the ear of holding weights and then lowering them back down",
     difficulty: "Beginner",
     equipment: "Barbell, Weights, Dumbbells"
-  }
+  },
+  "Bench Press": {
+    image: "/assets/exercises/benchpress.png",
+    description: "Strength training exercise where you push a weight upwards while lying on a bench",
+    difficulty: "Beginner",
+    equipment: "Barbell, Dumbbells"
+  },
+  "Leg Extensions": {
+    image: "/assets/exercises/legextensions.png",
+    description: "A strength training movement performed on a specialized machine that isolates and strengthens the quadriceps muscles at the front of the thighs.",
+    difficulty: "Beginner",
+    equipment: "Machine"
+  },
+  "Dumbbell Bench Press": {
+    image: "/assets/exercises/dumbbellbenchpress.png",
+    description: "Variation of bench press exercise where dumbbelss are used instead of a barbell, primarilly targets the chest muscles.",
+    difficulty: "Beginner",
+    equipment: "Dumbbell"
+  },
+  "Dumbbell Rows": {
+    image: "/assets/exercises/dumbbellrow.png",
+    description: "Back erxercise where you pull a dumbell up towards your chest/waist while bending over or using bench for support. Primarily targets lats and back muscles with secondary involvement from biceps, rear deltoids and core muscles",
+    difficulty: "Beginner",
+    equipment: "Dumbbell",
+  },
+  "Dumbbell Lunges": {
+    image: "/assets/exercises/dumbbelllunges.png",
+    description: "Variation of lunges exercise that involves holding dumbbells in each hand while stepping forward with one leg and lowering your body untill your front thigh is parallel to the floor",
+    difficulty: "Beginner",
+    equipment: "Dumbbell"
+  },
+  "Barbell Squats": {
+  image: "/assets/exercises/barbellsquats.png",
+  description: "A fundamental compound exercise where you place a barbell across your upper back and squat down by bending your knees and hips until your thighs are parallel to the floor, then stand back up to starting position",
+  difficulty: "Intermediate",
+  equipment: "Barbell"
+},
+
+"Barbell Deadlifts": {
+  image: "/assets/exercises/barbelldeadlift.png", 
+  description: "A powerful compound movement where you lift a loaded barbell from the floor by hinging at the hips and knees, keeping your back straight, until you reach a fully upright position with shoulders back",
+  difficulty: "Intermediate",
+  equipment: "Barbell"
+},
+
+"Barbell Bench Press": {
+  image: "/assets/exercises/barbellbenchpress.png",
+  description: "A classic upper body exercise performed lying on a bench where you lower a barbell to your chest with control, then press it back up to full arm extension above your chest",
+  difficulty: "Intermediate", 
+  equipment: "Barbell"
+},
+
+"Bodyweight Squats": {
+  image: "/assets/exercises/bodysquat.png",
+  description: "A foundational lower body exercise using only your body weight, where you squat down by bending your knees and pushing your hips back until your thighs are parallel to the floor, then return to standing",
+  difficulty: "Beginner",
+  equipment: "Bodyweight"
+},
+
+"Cable Flys": {
+  image: "/assets/exercises/cableflys.png",
+  description: "An isolation exercise for the chest using cable machines where you pull the cables from a wide position across your body in an arc motion, bringing your hands together in front of your chest",
+  difficulty: "Beginner",
+  equipment: "Cable"
+},
+
+"Cable Tricep Pushdowns": {
+  image: "/assets/exercises/cabletriceppushdown.png",
+  description: "An isolation exercise targeting the triceps using a cable machine where you push a cable attachment downward from chest level to full arm extension while keeping your elbows stationary at your sides",
+  difficulty: "Beginner", 
+  equipment: "Cable"
+},
+
+"Cable Rows": {
+  image: "/assets/exercises/cablerows.png",
+  description: "A back strengthening exercise using a cable machine where you pull a cable handle towards your torso while seated, squeezing your shoulder blades together and keeping your back straight throughout the movement",
+  difficulty: "Beginner",
+  equipment: "Cable"
+},
+
+"Ball Crunches": {
+  image: "/assets/exercises/ballcrunches.png",
+  description: "An enhanced version of traditional crunches performed on an exercise ball where you lie back over the ball and crunch your abs forward, allowing for greater range of motion and core activation",
+  difficulty: "Beginner",
+  equipment: "Exercise Ball"
+},
+
+"Ball Hamstring Curls": {
+  image: "/assets/exercises/ballharmstringcurls.png",
+  description: "A challenging hamstring exercise where you lie on your back with your feet on an exercise ball and curl your heels towards your glutes by bending your knees while lifting your hips off the ground",
+  difficulty: "Intermediate",
+  equipment: "Exercise Ball"
+},
+
+"Ball Pikes": {
+  image: "/assets/exercises/ballpikes.png",
+  description: "A core strengthening exercise where you start in a plank position with your feet on an exercise ball and pull your knees toward your chest, rolling the ball forward while keeping your hands planted on the ground",
+  difficulty: "Advanced",
+  equipment: "Exercise Ball"
+},
+
+"EZ Bar Curl": {
+  image: "/assets/exercises/ezbarcurl.png",
+  description: "A bicep exercise using an EZ curl bar with angled grips that reduces wrist strain, where you curl the bar from arm extension up to chest level while keeping your elbows close to your sides",
+  difficulty: "Beginner",
+  equipment: "EZ Bar"
+},
+
+"EZ Bar Skull Crusher": {
+  image: "/assets/exercises/ezbarskullcrusher.png",
+  description: "A tricep isolation exercise performed lying on a bench where you lower an EZ bar towards your forehead by bending only at the elbows, then extend your arms back to starting position",
+  difficulty: "Intermediate",
+  equipment: "EZ Bar"
+},
+
+"EZ Bar Rows": {
+  image: "/assets/exercises/ezbarrows.png",
+  description: "A back strengthening exercise where you bend forward at the hips and pull an EZ bar towards your lower chest or upper abdomen, squeezing your shoulder blades together while maintaining a straight back",
+  difficulty: "Intermediate",
+  equipment: "EZ Bar"
+}
+
 
   
 

@@ -57,7 +57,7 @@ const exercisesPerMuscle: Record<MuscleGroup, string[]> = {
 const exercisesPerEquipment: Record<EquipmentType, string[]> = {
   Dumbbell: ["Dumbbell Bench Press", "Dumbbell Rows", "Dumbbell Lunges"],
   Barbell: ["Barbell Squats", "Barbell Deadlifts", "Barbell Bench Press"],
-  Bodyweight: ["Push-ups", "Pull-ups", "Bodyweight Squats"],
+  Bodyweight: ["Push-ups", "Pull-Ups", "Bodyweight Squats"],
   Cable: ["Cable Flys", "Cable Tricep Pushdowns", "Cable Rows"],
   Machine: ["Leg Press", "Chest Press", "Lat Pulldown"],
   "Exercise Ball": ["Ball Crunches", "Ball Hamstring Curls", "Ball Pikes"],
@@ -65,7 +65,7 @@ const exercisesPerEquipment: Record<EquipmentType, string[]> = {
 }
 
 const exercisesPerMechanics: Record<MechanicType, string[]> = {
-  Compound: ["Squats", "Deadlifts", "Bench Press", "Pull-ups"],
+  Compound: ["Squats", "Deadlifts", "Bench Press", "Pull-Ups"],
   Isolation: ["Bicep Curls", "Leg Extensions", "Tricep Pushdowns"],
 }
 
@@ -144,7 +144,7 @@ export default function ExerciseCatalog() {
                     <div className='space-y-2 text-sm text-gray-700'>
                       <p><strong>Primary Focuss:</strong> {exerciseInfo.equipment} exercise</p>
                       <p><strong>Difficulty Level:</strong> {exerciseInfo.difficulty}</p>
-                      <p><strong>Instructions:</strong> {exerciseInfo.description}</p>
+                     {/* <p><strong>Instructions:</strong> {exerciseInfo.description}</p>*/}
                     </div>
                                   </div>
 
