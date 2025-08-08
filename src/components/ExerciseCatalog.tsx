@@ -15,12 +15,61 @@ type EquipmentType = typeof equipmentTypes[number]
 type MechanicType = typeof mechanics[number]
 
 const popularExercises = [
-  { name: "Dumbbell Lateral Raise", views: "9.3M", comments: 80 },
-  { name: "Dumbbell Bench Press", views: "6.1M", comments: 82 },
-  { name: "Bent Over Dumbbell Row", views: "5.4M", comments: 15 },
-  { name: "One Arm Dumbbell Row", views: "8.2M", comments: 47 },
-  { name: "Bent Over Row", views: "7.7M", comments: 47 },
-  { name: "Dumbbell Pullover", views: "5.2M", comments: 98 },
+   {
+    name: "Squats",
+    description: "Considered a fundamental exercise, squats work multiple muscle groups and are widely used in various fitness routines.",
+    image: "/assets/exercises/squats.png"
+  },
+  {
+    name: "Bench Press",
+    description: "A popular exercise, often done with free weights or machines, targeting the chest, shoulders, and triceps.",
+    image: "/assets/exercises/chestpress.png"
+  },
+  {
+    name: "Deadlifts",
+    description: "A compound exercise, deadlifts engage numerous muscles, making them a staple in strength training.",
+    image: "/assets/exercises/deadlifts.png"
+  },
+  {
+    name: "Lunges",
+    description: "Effective for building lower body strength and improving balance, lunges can be modified in various ways.",
+    image: "/assets/exercises/lunges.png"
+  },
+  {
+    name: "Push-ups",
+    description: "A classic bodyweight exercise, push-ups work the chest, shoulders, and triceps.",
+    image: "/assets/exercises/pushups.png"
+  },
+  {
+    name: "Pull-ups",
+    description: "Another bodyweight exercise, pull-ups are great for building back and arm strength.",
+    image: "/assets/exercises/pull-ups.png"
+  },
+  {
+    name: "Dumbbell Shoulder Press",
+    description: "This exercise targets the deltoids, triceps, and postural muscles.",
+    image: "/assets/exercises/overheadpress.png"
+  },
+  {
+    name: "Overhead Press",
+    description: "A popular exercise for developing shoulder and upper body strength.",
+    image: "/assets/exercises/overheadpress.png"
+  },
+  {
+    name: "Burpees",
+    description: "A full-body workout, burpees are a high-intensity exercise that combines several movements.",
+    image: "/assets/exercises/burpeee.png"
+  },
+  {
+  name: "Yoga",
+  description: "A holistic practice focusing on flexibility, breathing, and meditation to improve both physical fitness and mental well-being.",
+  image: "/assets/exercises/yoga.png"
+},
+{
+  name: "Tai Chi",
+  description: "A slow, flowing martial art that enhances balance, coordination, and relaxation while reducing stress.",
+  image: "/assets/exercises/taichi.png"
+}
 ]
 
 const equipmentTypes = [
@@ -243,10 +292,26 @@ export default function ExerciseCatalog() {
       {activeTab === 'popular' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {popularExercises.map((exercise) => (
+            
             <div key={exercise.name} className="py-10 px-10 border rounded-lg shadow-sm bg-white">
-              <h3 className="font-semibold text-gray-900">{exercise.name}</h3>
-              <p className="text-gray-600">{exercise.views} Views</p>
-              <p className="text-gray-600">{exercise.comments} Comments</p>
+              <h3 className="font-bold text-xl p-4">{exercise.name}</h3>
+              
+              <h3 className="font-semibold p-4">{exercise.description}   </h3>
+                <div className='p-4'>
+                     <img 
+                src={exercise.image} 
+                alt={exercise}
+                className='object-cover rounded-lg flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity '
+                onClick={(e => {
+                  e.stopPropagation()
+                  setEnlargeImage(exercise.image)
+                })}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/assets/exercises/default.png" // fallback
+                }}
+              />
+                </div>
+            
             </div>
           ))}
         </div>
