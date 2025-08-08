@@ -3,6 +3,7 @@ import React from 'react'
 export default function classModel () {
 
   interface ClassModel {
+    className: string;
     name: string;
     time: string;
     trainer: string;
@@ -13,7 +14,5 @@ export default function classModel () {
     updatedAt: Date;
   }
   
-  return (
-    <div>class</div>
-  )
+
 }
